@@ -2,14 +2,14 @@ package com.example.bdsqltester.scenes;
 
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.MainDataSource;
-import javafx.application.Application;
+import com.example.bdsqltester.scenes.siswa.SiswaViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -57,8 +57,8 @@ public class LoginController {
 
     @FXML
     void initialize() {
-        selectRole.getItems().addAll("Admin", "User");
-        selectRole.setValue("User");
+        selectRole.getItems().addAll("Admin", "Siswa", "Guru", "Wali Kelas");
+        selectRole.setValue("Admin");
     }
 
     @FXML
@@ -82,9 +82,16 @@ public class LoginController {
                     FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("admin-view.fxml"));
                     Scene scene = new Scene(loader.load());
                     app.getPrimaryStage().setScene(scene);
-                } else {
+                } else if (role.equals("Siswa")){
                     // Load the user view
-                    app.getHostServices().showDocument("user-view.fxml");
+                    app.getPrimaryStage().setTitle("Siswa View");
+
+                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("siswa-view.fxml"));
+                    Parent root = loader.load();
+                    SiswaViewController siswaViewController = loader.getController();
+                    siswaViewController.setUsername(username);
+                    Scene scene = new Scene(root);
+                    app.getPrimaryStage().setScene(scene);
                 }
             } else {
                 // Show an error message

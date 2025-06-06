@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bdsqltester.scenes.siswa.SiswaViewController">
    <children>
       <ImageView fitHeight="154.0" fitWidth="138.0" layoutX="31.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" />
       <Label alignment="CENTER" layoutX="23.0" layoutY="9.0" prefHeight="31.0" prefWidth="400.0" text="Welcome !">
@@ -14,13 +14,13 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutY="195.0" prefHeight="31.0" prefWidth="200.0" text="Nama">
+      <Label fx:id="nameLabel" alignment="CENTER" layoutY="195.0" prefHeight="31.0" prefWidth="200.0" text="Nama">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Button layoutX="199.0" layoutY="51.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="214.0" text="Biodata" />
-      <Button layoutX="199.0" layoutY="103.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="213.0" text="Schedule" />
-      <Button layoutX="199.0" layoutY="157.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="213.0" text="Grade" />
+      <Button fx:id="biodataButton" layoutX="199.0" layoutY="51.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="214.0" text="Biodata" />
+      <Button fx:id="scheduleButton" layoutX="199.0" layoutY="103.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="213.0" text="Schedule" />
+      <Button fx:id="gradeButton" layoutX="199.0" layoutY="157.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="213.0" text="Grade" />
    </children>
 </AnchorPane>
