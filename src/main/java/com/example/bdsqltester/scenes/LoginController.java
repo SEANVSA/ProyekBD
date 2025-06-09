@@ -2,7 +2,9 @@ package com.example.bdsqltester.scenes;
 
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.MainDataSource;
+import com.example.bdsqltester.scenes.guru.GuruController;
 import com.example.bdsqltester.scenes.siswa.SiswaViewController;
+import com.example.bdsqltester.scenes.walikelas.WaliKelasController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +26,7 @@ public class LoginController {
     private ChoiceBox<String> selectRole;
 
     @FXML
-    private TextField usernameField;
+    private TextField idField;
 
     boolean verifyCredentials(String username, String password, String role) throws SQLException {
         // Call the database to verify the credentials
@@ -34,7 +36,7 @@ public class LoginController {
         // Get a connection to the database
         try (Connection c = MainDataSource.getConnection()) {
             // Create a prepared statement to prevent SQL injection
-            PreparedStatement stmt = c.prepareStatement("SELECT * FROM users WHERE username = ? AND role = ?");
+            PreparedStatement stmt = c.prepareStatement("SELECT * FROM users WHERE login_id = ? AND role = ?");
             stmt.setString(1, username);
             stmt.setString(2, role.toLowerCase());
 
@@ -64,13 +66,13 @@ public class LoginController {
     @FXML
     void onLoginClick(ActionEvent event) {
         // Get the username and password from the text fields
-        String username = usernameField.getText();
+        String id = idField.getText();
         String password = passwordField.getText();
         String role = selectRole.getValue();
 
         // Verify the credentials
         try {
-            if (verifyCredentials(username, password, role)) {
+            if (verifyCredentials(id, password, role)) {
                 HelloApplication app = HelloApplication.getApplicationInstance();
 
                 // Load the correct view based on the role
@@ -89,7 +91,27 @@ public class LoginController {
                     FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("siswa-view.fxml"));
                     Parent root = loader.load();
                     SiswaViewController siswaViewController = loader.getController();
-                    siswaViewController.setUsername(username);
+                    siswaViewController.setId(id);
+                    Scene scene = new Scene(root);
+                    app.getPrimaryStage().setScene(scene);
+                } else if (role.equals("Guru")){
+                    // Load the user view
+                    app.getPrimaryStage().setTitle("Guru View");
+
+                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("siswa-view.fxml"));
+                    Parent root = loader.load();
+                    GuruController guruController = loader.getController();
+                    guruController.setId(id);
+                    Scene scene = new Scene(root);
+                    app.getPrimaryStage().setScene(scene);
+                } else if (role.equals("Wali Kelas")){
+                    // Load the user view
+                    app.getPrimaryStage().setTitle("Wali Kelas View");
+
+                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("siswa-view.fxml"));
+                    Parent root = loader.load();
+                    WaliKelasController waliKelasController = loader.getController();
+                    waliKelasController.setId(id);
                     Scene scene = new Scene(root);
                     app.getPrimaryStage().setScene(scene);
                 }

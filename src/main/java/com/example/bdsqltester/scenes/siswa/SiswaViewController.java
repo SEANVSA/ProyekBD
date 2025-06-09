@@ -29,15 +29,25 @@ public class SiswaViewController {
     @FXML
     private Button gradeButton;
 
-    private String username;
+    private String id;
 
-    public void setUsername(String name) {
-        this.username = name;
+    public void setId(String id) {
+        this.id = id;
         updateNameLabel();
     }
     private void updateNameLabel() {
-        if (username != null) {
-            nameLabel.setText(username);
+        if (id != null) {
+            try(Connection data = MainDataSource.getConnection()){
+                PreparedStatement stmt = data.prepareStatement("SELECT * FROM students WHERE nrp = ?");
+                stmt.setString(1, id);
+                // Execute the query
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()){
+                    nameLabel.setText(rs.getString("name"));
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
     @FXML

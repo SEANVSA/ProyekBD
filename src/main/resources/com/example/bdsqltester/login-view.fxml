@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefWidth="248.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.example.bdsqltester.scenes.LoginController">
+<VBox alignment="CENTER" prefWidth="248.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bdsqltester.scenes.LoginController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -25,8 +25,8 @@
        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
      </rowConstraints>
       <children>
-         <Label text="Username" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
-         <TextField fx:id="usernameField" GridPane.columnIndex="1" />
+         <Label text="User ID" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+         <TextField fx:id="idField" GridPane.columnIndex="1" />
          <TextField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          <Label text="Password" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
          <Label text="Role" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
