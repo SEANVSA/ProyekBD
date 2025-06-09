@@ -19,8 +19,8 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Button fx:id="biodataButton" layoutX="199.0" layoutY="51.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="214.0" text="Biodata" />
-      <Button fx:id="scheduleButton" layoutX="199.0" layoutY="103.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="213.0" text="Schedule" />
-      <Button fx:id="gradeButton" layoutX="199.0" layoutY="157.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="213.0" text="Grade" />
+      <Button fx:id="biodataButton" layoutX="199.0" layoutY="51.0" mnemonicParsing="false" onAction="#onBiodataButtonClicked" prefHeight="30.0" prefWidth="214.0" text="Biodata" />
+      <Button fx:id="scheduleButton" layoutX="199.0" layoutY="103.0" mnemonicParsing="false" onAction="#onScheduleButtonClicked" prefHeight="30.0" prefWidth="213.0" text="Schedule" />
+      <Button fx:id="gradeButton" layoutX="199.0" layoutY="157.0" mnemonicParsing="false" onAction="#onGradeButtonClicked" prefHeight="30.0" prefWidth="213.0" text="Grade" />
    </children>
 </AnchorPane>

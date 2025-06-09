@@ -1,20 +1,10 @@
 package com.example.bdsqltester.scenes.guru;
 
-import com.example.bdsqltester.datasources.GradingDataSource;
-import com.example.bdsqltester.datasources.MainDataSource;
-import com.example.bdsqltester.dtos.Assignment;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import com.example.bdsqltester.datasources.*;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class GuruController {
     @FXML

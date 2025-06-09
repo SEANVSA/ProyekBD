@@ -6,29 +6,28 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="323.0" prefWidth="525.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="323.0" prefWidth="525.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bdsqltester.scenes.siswa.SiswaBiodataController">
    <children>
-      <Label alignment="CENTER" layoutX="53.0" layoutY="7.0" prefHeight="17.0" prefWidth="419.0" text="Welcome Nama !">
+      <Label fx:id="welcomeNama" alignment="CENTER" layoutX="53.0" layoutY="7.0" prefHeight="17.0" prefWidth="419.0" text="Welcome Nama !">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
       <ImageView fitHeight="258.0" fitWidth="193.0" layoutX="38.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" />
       <ListView layoutX="262.0" layoutY="42.0" prefHeight="258.0" prefWidth="243.0" />
-      <Label layoutX="275.0" layoutY="54.0" prefHeight="17.0" prefWidth="176.0" text="Nama Lengkap: " />
-      <Label layoutX="275.0" layoutY="71.0" prefHeight="17.0" prefWidth="176.0" text="Tempat, Tanggal Lahir:" />
-      <Label layoutX="275.0" layoutY="88.0" prefHeight="17.0" prefWidth="176.0" text="Nomor Induk Siswa:" />
-      <Label layoutX="275.0" layoutY="105.0" prefHeight="17.0" prefWidth="176.0" text="Jenis Kelamin:" />
-      <Label layoutX="275.0" layoutY="122.0" prefHeight="17.0" prefWidth="176.0" text="Agama:" />
-      <Label layoutX="275.0" layoutY="139.0" prefHeight="17.0" prefWidth="176.0" text="Alamat:" />
-      <Label layoutX="275.0" layoutY="155.0" prefHeight="17.0" prefWidth="176.0" text="Nomor Telepon/HP:" />
-      <Label layoutX="275.0" layoutY="189.0" prefHeight="17.0" prefWidth="176.0" text="Nama Orang Tua:" />
-      <Label layoutX="275.0" layoutY="223.0" prefHeight="17.0" prefWidth="176.0" text="Pekerjaan Orang Tua:" />
-      <Label layoutX="275.0" layoutY="206.0" prefHeight="17.0" prefWidth="176.0" text="Nomor Telepon Orang Tua:" />
-      <Label layoutX="275.0" layoutY="172.0" prefHeight="17.0" prefWidth="176.0" text="Golongan Darah" />
-      <Label layoutX="275.0" layoutY="240.0" prefHeight="17.0" prefWidth="176.0" text="Email Orang Tua:" />
-      <Label layoutX="275.0" layoutY="257.0" prefHeight="17.0" prefWidth="176.0" text="Alamat Orang Tua:" />
-      <Label layoutX="275.0" layoutY="274.0" prefHeight="17.0" prefWidth="176.0" text="Status Orang Tua:" />
+      <Label fx:id="namaLengkap" layoutX="275.0" layoutY="54.0" prefHeight="17.0" prefWidth="176.0" text="Nama Lengkap: " />
+      <Label fx:id="tempatTanggalLahir" layoutX="275.0" layoutY="71.0" prefHeight="17.0" prefWidth="176.0" text="Tempat, Tanggal Lahir:" />
+      <Label fx:id="nomorIndukSiswa" layoutX="275.0" layoutY="88.0" prefHeight="17.0" prefWidth="176.0" text="Nomor Induk Siswa:" />
+      <Label fx:id="jenisKelamin" layoutX="275.0" layoutY="105.0" prefHeight="17.0" prefWidth="176.0" text="Jenis Kelamin:" />
+      <Label fx:id="agama" layoutX="275.0" layoutY="122.0" prefHeight="17.0" prefWidth="176.0" text="Agama:" />
+      <Label fx:id="alamat" layoutX="275.0" layoutY="139.0" prefHeight="17.0" prefWidth="176.0" text="Alamat:" />
+      <Label fx:id="nomorTelepon" layoutX="275.0" layoutY="155.0" prefHeight="17.0" prefWidth="176.0" text="Nomor Telepon/HP:" />
+      <Label fx:id="namaOrangTua" layoutX="275.0" layoutY="189.0" prefHeight="17.0" prefWidth="176.0" text="Nama Orang Tua:" />
+      <Label fx:id="pekerjaanOrangTua" layoutX="275.0" layoutY="223.0" prefHeight="17.0" prefWidth="176.0" text="Pekerjaan Orang Tua:" />
+      <Label fx:id="nomorTelponOrangTua" layoutX="275.0" layoutY="206.0" prefHeight="17.0" prefWidth="176.0" text="Nomor Telepon Orang Tua:" />
+      <Label fx:id="golDar" layoutX="275.0" layoutY="172.0" prefHeight="17.0" prefWidth="176.0" text="Golongan Darah" />
+      <Label fx:id="emailOrangTua" layoutX="275.0" layoutY="240.0" prefHeight="17.0" prefWidth="176.0" text="Email Orang Tua:" />
+      <Label fx:id="alamatOrangTua" layoutX="275.0" layoutY="257.0" prefHeight="17.0" prefWidth="176.0" text="Alamat Orang Tua:" />
+      <Label fx:id="statusOrangTua" layoutX="275.0" layoutY="274.0" prefHeight="17.0" prefWidth="176.0" text="Status Orang Tua:" />
    </children>
 </Pane>
