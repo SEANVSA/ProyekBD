@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.sql.*;
 
 public class LoginController {
-    Connection data = MainDataSource.getConnection();
 
     @FXML
     private TextField passwordField;
@@ -41,7 +40,7 @@ public class LoginController {
         // In a real application, you should hash the password and store it securely.
 
         // Get a connection to the database
-        try {
+        try (Connection data = MainDataSource.getConnection()){
             // Create a prepared statement to prevent SQL injection
             PreparedStatement stmt = data.prepareStatement("SELECT * FROM users WHERE login_id = ? AND role = ?");
             stmt.setString(1, username);

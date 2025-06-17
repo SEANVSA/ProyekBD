@@ -12,7 +12,7 @@ import javafx.scene.control.*;
 import java.io.IOException;
 import java.sql.*;
 
-public class SiswaViewController {
+public class DataOrangTuaController {
     @FXML
     private Button backToLogin;
 
@@ -31,7 +31,7 @@ public class SiswaViewController {
     private String id;
     private String username;
 
-    public SiswaViewController(){
+    public DataOrangTuaController(){
     }
 
     public void setId(String id) {

@@ -17,7 +17,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SiswaBiodataController {
-    Connection data = MainDataSource.getConnection();
 
     private String username;
     private String id;
@@ -44,9 +43,6 @@ public class SiswaBiodataController {
     @FXML
     private Button lihatDataOrangTua;
 
-    public SiswaBiodataController() throws SQLException {
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -61,7 +57,7 @@ public class SiswaBiodataController {
         updateBioPribadi();
     }
     void updateBioPribadi(){
-        try {
+        try (Connection data = MainDataSource.getConnection()){
             if(id!=null) {
                 PreparedStatement stmt = data.prepareStatement("SELECT * FROM siswa WHERE id_siswa = ?");
                 stmt.setInt(1, Integer.parseInt(id));
@@ -85,10 +81,23 @@ public class SiswaBiodataController {
 
     @FXML
     void onLihatDataOrangTuaClicked(ActionEvent actionEvent) {
+        try {
+            HelloApplication app = HelloApplication.getApplicationInstance();
+            app.getPrimaryStage().setTitle("Data Orang Tua");
 
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("siswa-dataoOrangTua.fxml"));
+            Parent root = loader.load();
+            DataOrangTuaController dataOrangTuaController = loader.load();
+            dataOrangTuaController.setId(id);
+            Scene scene = new Scene(root);
+            app.getPrimaryStage().setScene(scene);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
     }
     @FXML
-    void onKembaliClicked(ActionEvent actionEvent) throws IOException {
+    void onKembaliClicked(ActionEvent actionEvent) {
+        try {
         HelloApplication app = HelloApplication.getApplicationInstance();
         app.getPrimaryStage().setTitle("Siswa View");
 
@@ -98,5 +107,8 @@ public class SiswaBiodataController {
         siswaViewController.setId(id);
         Scene scene = new Scene(root);
         app.getPrimaryStage().setScene(scene);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
     }
 }
