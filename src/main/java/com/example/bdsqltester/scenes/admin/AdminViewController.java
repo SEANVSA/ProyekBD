@@ -65,6 +65,8 @@ public class AdminViewController {
 
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("admin-inputDataSiswa.fxml"));
             Parent root = loader.load();
+            InputDataSiswaController inputDataSiswaController = loader.getController();
+            inputDataSiswaController.setId(id);
             Scene scene = new Scene(root);
             app.getPrimaryStage().setScene(scene);
         } catch (IOException e) {
@@ -81,6 +83,8 @@ public class AdminViewController {
 
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("admin-inputJadwalKelas.fxml"));
             Parent root = loader.load();
+            InputJadwalKelasController inputJadwalKelasController = loader.getController();
+            inputJadwalKelasController.setId(id);
             Scene scene = new Scene(root);
             app.getPrimaryStage().setScene(scene);
         } catch (IOException e) {
@@ -97,6 +101,8 @@ public class AdminViewController {
 
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("admin-membagiKelas.fxml"));
             Parent root = loader.load();
+            MembagiKelasController membagiKelasController = loader.getController();
+            membagiKelasController.setId(id);
             Scene scene = new Scene(root);
             app.getPrimaryStage().setScene(scene);
         } catch (IOException e) {
