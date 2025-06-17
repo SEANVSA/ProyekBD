@@ -2,7 +2,7 @@ package com.example.bdsqltester.scenes;
 
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.MainDataSource;
-import com.example.bdsqltester.scenes.admin.AdminController;
+import com.example.bdsqltester.scenes.admin.AdminViewController;
 import com.example.bdsqltester.scenes.guru.GuruController;
 import com.example.bdsqltester.scenes.siswa.SiswaViewController;
 import com.example.bdsqltester.scenes.walikelas.WaliKelasController;
@@ -91,7 +91,8 @@ public class LoginController {
                     // Load fxml and set the scene
                     FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("admin-view.fxml"));
                     Parent root = loader.load();
-                    AdminController adminController = loader.getController();
+                    AdminViewController adminController = loader.getController();
+                    adminController.setId(ref_id);
                     Scene scene = new Scene(root);
                     app.getPrimaryStage().setScene(scene);
                 } else if (role.equals("Siswa")){

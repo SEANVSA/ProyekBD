@@ -8,7 +8,6 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
@@ -22,11 +21,6 @@
     <HBox alignment="CENTER" spacing="20.0">
         <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Pembagian Kelas dan Wali Kelas" />
         <Region HBox.hgrow="ALWAYS" />
-        <Button style="-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #e74c3c; -fx-background-radius: 5; -fx-padding: 5 15 5 15;" text="Close">
-            <effect>
-                <DropShadow color="rgba(0,0,0,0.1)" radius="3" />
-            </effect>
-        </Button>
     </HBox>
 
     <!-- Main Content Card -->

@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
 <VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #f5f7fa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <padding>
@@ -14,29 +20,24 @@
 
     <!-- Header with Close Button -->
     <HBox alignment="CENTER" spacing="20.0">
-        <Label text="Input Jadwal Kelas" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Input Jadwal Kelas" />
         <Region HBox.hgrow="ALWAYS" />
-        <Button text="Close" style="-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #e74c3c; -fx-background-radius: 5; -fx-padding: 5 15 5 15;">
-            <effect>
-                <DropShadow color="rgba(0,0,0,0.1)" radius="3" />
-            </effect>
-        </Button>
     </HBox>
 
     <!-- Filter and Input Section -->
     <VBox alignment="CENTER" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);">
         <HBox alignment="CENTER_LEFT" spacing="15.0">
-            <Label text="Kelas:" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" />
+            <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Kelas:" />
             <ChoiceBox fx:id="kelasChoice" prefWidth="200.0">
                 <items>
                 </items>
             </ChoiceBox>
 
-            <Label text="Hari:" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" />
+            <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Hari:" />
             <ChoiceBox fx:id="hariChoice" prefWidth="150.0">
             </ChoiceBox>
 
-            <Button text="Filter Jadwal" style="-fx-font-size: 14px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 15 5 15;" />
+            <Button style="-fx-font-size: 14px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 15 5 15;" text="Filter Jadwal" />
         </HBox>
 
         <Separator style="-fx-padding: 10 0 10 0;" />
@@ -53,11 +54,11 @@
 
             <children>
                 <!-- Header Row -->
-                <Label text="Waktu" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
-                <Label text="Jam Mulai" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" GridPane.columnIndex="1" />
-                <Label text="Jam Selesai" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" GridPane.columnIndex="2" />
-                <Label text="Mata Pelajaran" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" GridPane.columnIndex="3" />
-                <Label text="Nama Guru" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" GridPane.columnIndex="4" />
+                <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Waktu" />
+                <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Jam Mulai" GridPane.columnIndex="1" />
+                <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Jam Selesai" GridPane.columnIndex="2" />
+                <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Mata Pelajaran" GridPane.columnIndex="3" />
+                <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Nama Guru" GridPane.columnIndex="4" />
 
                 <!-- Time Slots -->
                 <Label text="07.00 - 07.35" GridPane.rowIndex="1" />
@@ -108,17 +109,28 @@
                 <TextField fx:id="mapel8" GridPane.columnIndex="3" GridPane.rowIndex="8" />
                 <TextField fx:id="guru8" GridPane.columnIndex="4" GridPane.rowIndex="8" />
             </children>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
         </GridPane>
     </VBox>
 
     <!-- Action Buttons -->
     <HBox alignment="CENTER" spacing="20.0">
-        <Button text="Simpan Jadwal" style="-fx-font-size: 16px; -fx-pref-width: 180px; -fx-pref-height: 40px; -fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 5;" />
-        <Button text="Reset Form" style="-fx-font-size: 16px; -fx-pref-width: 180px; -fx-pref-height: 40px; -fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 5;" />
+        <Button style="-fx-font-size: 16px; -fx-pref-width: 180px; -fx-pref-height: 40px; -fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 5;" text="Simpan Jadwal" />
+        <Button style="-fx-font-size: 16px; -fx-pref-width: 180px; -fx-pref-height: 40px; -fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 5;" text="Reset Form" />
     </HBox>
 
     <!-- Navigation -->
     <HBox alignment="CENTER" spacing="20.0">
-        <Button text="Kembali ke Dashboard" style="-fx-font-size: 14px; -fx-pref-width: 200px; -fx-pref-height: 35px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" />
+        <Button style="-fx-font-size: 14px; -fx-pref-width: 200px; -fx-pref-height: 35px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="Kembali ke Dashboard" />
     </HBox>
 </VBox>
