@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #f5f7fa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <!-- Header with Close Button -->
+    <HBox alignment="CENTER" spacing="20.0">
+        <Label fx:id="scheduleTitle" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Jadwal Kelas Guru" />
+        <Region HBox.hgrow="ALWAYS" />
+    </HBox>
+
+    <!-- Schedule Card -->
+    <VBox alignment="CENTER" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);">
+        <!-- Schedule Table -->
+        <TableView fx:id="scheduleTable" prefHeight="350.0" prefWidth="892.0">
+            <columns>
+                <TableColumn prefWidth="120" style="-fx-font-weight: bold;" text="Waktu" />
+                <TableColumn prefWidth="148.0000457763672" text="Senin" />
+                <TableColumn prefWidth="140.0" text="Selasa" />
+                <TableColumn prefWidth="134.39996337890625" text="Rabu" />
+                <TableColumn minWidth="0.0" prefWidth="177.5999755859375" text="Kamis" />
+                <TableColumn prefWidth="172.00006103515625" text="Jumat" />
+            </columns>
+            <items>
+                <!-- Placeholder jadwal, bisa diubah dari controller -->
+                <!--
+                            <FXCollections fx:factory="observableArrayList">
+                               <ScheduleRow time="07.00 - 07.35" senin="Mapel 1" selasa="Mapel 1" rabu="Mapel 1" kamis="Mapel 1" jumat="Mapel 1"/>
+                               <ScheduleRow time="07.35 - 08.10" senin="Mapel 2" selasa="Mapel 2" rabu="Mapel 2" kamis="Mapel 2" jumat="Mapel 2"/>
+                               <ScheduleRow time="08.10 - 08.45" senin="Mapel 3" selasa="Mapel 3" rabu="Mapel 3" kamis="Mapel 3" jumat="Mapel 3"/>
+                               <ScheduleRow time="08.45 - 09.15" senin="Mapel 4" selasa="Mapel 4" rabu="Mapel 4" kamis="Mapel 4" jumat="Mapel 4"/>
+                               <ScheduleRow time="09.15 - 09.50" senin="Istirahat" selasa="Istirahat" rabu="Istirahat" kamis="Istirahat" jumat="Istirahat"/>
+                               <ScheduleRow time="09.50 - 10.25" senin="Mapel 5" selasa="Mapel 5" rabu="Mapel 5" kamis="Mapel 5" jumat="Mapel 5"/>
+                               <ScheduleRow time="10.25 - 11.00" senin="Mapel 6" selasa="Mapel 6" rabu="Mapel 6" kamis="Mapel 6" jumat="Mapel 6"/>
+                               <ScheduleRow time="11.00 - 11.35" senin="Mapel 7" selasa="Mapel 7" rabu="Mapel 7" kamis="Mapel 7" jumat="Mapel 7"/>
+                            </FXCollections>
+                -->
+            </items>
+        </TableView>
+
+        <!-- Rest Time Note -->
+        <Label style="-fx-font-style: italic; -fx-text-fill: #7f8c8d;" text="* Waktu istirahat: 09.15 - 09.50" />
+    </VBox>
+
+    <!-- Back Button -->
+    <HBox alignment="CENTER" style="-fx-padding: 20 0 0 0;">
+        <Button style="-fx-font-size: 14px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="Kembali" />
+    </HBox>
+</VBox>

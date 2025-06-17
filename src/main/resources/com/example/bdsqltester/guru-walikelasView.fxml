@@ -14,24 +14,25 @@
 
     <!-- Header with Close Button -->
     <HBox alignment="CENTER" spacing="20.0">
-        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Guru Dashboard" />
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Wali Kelas Dashboard" />
         <Region HBox.hgrow="ALWAYS" />
     </HBox>
 
-    <!-- Guru Functions Card -->
+    <!-- Wali Kelas Functions Card -->
     <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);">
-        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Menu Guru" />
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Menu Wali Kelas" />
 
-        <!-- Guru Buttons -->
+        <!-- Wali Kelas Buttons -->
         <VBox alignment="CENTER" spacing="15.0">
             <Button style="-fx-font-size: 16px; -fx-pref-width: 300px; -fx-pref-height: 50px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;" text="Jadwal Kelas" />
             <Button style="-fx-font-size: 16px; -fx-pref-width: 300px; -fx-pref-height: 50px; -fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 5;" text="Masukkan Nilai" />
+            <Button style="-fx-font-size: 16px; -fx-pref-width: 300px; -fx-pref-height: 50px; -fx-background-color: #f1c40f; -fx-text-fill: #2c3e50; -fx-background-radius: 5;" text="Cetak Rapor" />
         </VBox>
     </VBox>
 
     <!-- User Info and Logout -->
     <HBox alignment="CENTER_RIGHT" spacing="15.0">
-        <Label fx:id="guruNameLabel" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;" text="Guru: Nama Guru" />
+        <Label fx:id="waliKelasNameLabel" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;" text="Wali Kelas: Nama Wali Kelas" />
         <Button style="-fx-font-size: 14px; -fx-pref-width: 100px; -fx-pref-height: 35px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="Logout" />
     </HBox>
 </VBox>
