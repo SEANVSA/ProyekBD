@@ -97,6 +97,9 @@ public class SiswaViewController {
 
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("siswa-grade.fxml"));
             Parent root = loader.load();
+            SiswaGradeController siswaGradeController = loader.getController();
+            siswaGradeController.setUsername(username);
+            siswaGradeController.setId(id);
             Scene scene = new Scene(root);
             app.getPrimaryStage().setScene(scene);
         } catch (IOException e) {
