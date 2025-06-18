@@ -43,12 +43,12 @@
         <!-- Grades Table -->
         <TableView fx:id="gradesTable" prefHeight="300.0" prefWidth="600.0" style="-fx-font-size: 14px;">
             <columns>
-                <TableColumn prefWidth="200" text="Mata Pelajaran">
+                <TableColumn fx:id="mataPelajaranColumn" prefWidth="200" text="Mata Pelajaran">
                     <cellValueFactory>
                         <!--                        <PropertyValueFactory property="subject" />-->
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn prefWidth="100" text="Nilai">
+                <TableColumn fx:id="nilaiColumn" prefWidth="100" text="Nilai">
                     <cellValueFactory>
                         <!--                        <PropertyValueFactory property="grade" />-->
                     </cellValueFactory>

@@ -2,6 +2,7 @@ package com.example.bdsqltester.scenes.siswa;
 
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.MainDataSource;
+import com.example.bdsqltester.dtos.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,16 +26,12 @@ public class SiswaJadwalController {
     @FXML
     private TableView<String> scheduleTable;
 
-    private String username;
-    private String id;
+    private User user = new User();
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     @FXML
     void onKembaliClicked(ActionEvent actionEvent) {
@@ -45,7 +42,7 @@ public class SiswaJadwalController {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("siswa-view.fxml"));
             Parent root = loader.load();
             SiswaViewController siswaViewController = loader.getController();
-            siswaViewController.setId(id);
+            siswaViewController.setUser(user);
             Scene scene = new Scene(root);
             app.getPrimaryStage().setScene(scene);
         }catch (IOException e){

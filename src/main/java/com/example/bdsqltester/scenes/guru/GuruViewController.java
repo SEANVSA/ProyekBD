@@ -1,6 +1,7 @@
 package com.example.bdsqltester.scenes.guru;
 
 import com.example.bdsqltester.datasources.*;
+import com.example.bdsqltester.dtos.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -19,21 +20,22 @@ public class GuruViewController {
     @FXML
     private Button gradeButton;
 
-    private String id;
+    private User user = new User();
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUser(User user) {
+        this.user = user;
         updateNameLabel();
     }
     private void updateNameLabel() {
-        if (id != null) {
+        if (user.id != null) {
             try(Connection data = MainDataSource.getConnection()){
                 PreparedStatement stmt = data.prepareStatement("SELECT * FROM teachers WHERE nrp = ?");
-                stmt.setString(1, id);
+                stmt.setString(1, user.id);
                 // Execute the query
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()){
-                    nameLabel.setText(rs.getString("name"));
+                    user.username = rs.getString("name");
+                    nameLabel.setText(user.username);
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -42,6 +44,6 @@ public class GuruViewController {
     }
     @FXML
     void initialize(){
-        updateNameLabel();
+
     }
 }

@@ -2,6 +2,7 @@ package com.example.bdsqltester.scenes;
 
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.MainDataSource;
+import com.example.bdsqltester.dtos.User;
 import com.example.bdsqltester.scenes.admin.AdminViewController;
 import com.example.bdsqltester.scenes.guru.GuruViewController;
 import com.example.bdsqltester.scenes.siswa.SiswaViewController;
@@ -29,10 +30,7 @@ public class LoginController {
     @FXML
     private TextField idField;
 
-    String ref_id = "";
-
-    public LoginController() throws SQLException {
-    }
+    private User user;
 
     boolean verifyCredentials(String username, String password, String role) throws SQLException {
         // Call the database to verify the credentials
@@ -54,7 +52,7 @@ public class LoginController {
                 String dbPassword = rs.getString("password");
 
                 if (dbPassword.equals(password)) {
-                    ref_id = rs.getString("ref_id");
+                    user = new User(rs);
                     return true; // Credentials are valid
                 }
             }
@@ -68,11 +66,11 @@ public class LoginController {
 
     @FXML
     void initialize() {
-        idField.setText("andi_siswa");
-        passwordField.setText("hashed_pass1");
+        idField.setText("A001_admin");
+        passwordField.setText("hashed_pass9");
 
         selectRole.getItems().addAll("Admin", "Siswa", "Guru", "Wali Kelas");
-        selectRole.setValue("Siswa");
+        selectRole.setValue("Admin");
     }
 
     @FXML
@@ -95,7 +93,7 @@ public class LoginController {
                     FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("admin-view.fxml"));
                     Parent root = loader.load();
                     AdminViewController adminController = loader.getController();
-                    adminController.setId(ref_id);
+                    adminController.setUser(user);
                     Scene scene = new Scene(root);
                     app.getPrimaryStage().setScene(scene);
                 } else if (role.equals("Siswa")){
@@ -105,27 +103,25 @@ public class LoginController {
                     FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("siswa-view.fxml"));
                     Parent root = loader.load();
                     SiswaViewController siswaViewController = loader.getController();
-                    siswaViewController.setId(ref_id);
+                    siswaViewController.setUser(user);
                     Scene scene = new Scene(root);
                     app.getPrimaryStage().setScene(scene);
                 } else if (role.equals("Guru")){
                     // Load the user view
                     app.getPrimaryStage().setTitle("Guru View");
 
-                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("siswa-view.fxml"));
+                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("guru-view.fxml"));
                     Parent root = loader.load();
                     GuruViewController guruController = loader.getController();
-                    guruController.setId(ref_id);
                     Scene scene = new Scene(root);
                     app.getPrimaryStage().setScene(scene);
                 } else if (role.equals("Wali Kelas")){
                     // Load the user view
                     app.getPrimaryStage().setTitle("Wali Kelas View");
 
-                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("siswa-view.fxml"));
+                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("guru-walikelasView.fxml"));
                     Parent root = loader.load();
                     WaliKelasViewController waliKelasController = loader.getController();
-                    waliKelasController.setId(ref_id);
                     Scene scene = new Scene(root);
                     app.getPrimaryStage().setScene(scene);
                 }

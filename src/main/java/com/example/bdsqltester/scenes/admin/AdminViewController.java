@@ -2,6 +2,7 @@ package com.example.bdsqltester.scenes.admin;
 
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.*;
+import com.example.bdsqltester.dtos.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,41 +15,30 @@ import java.sql.*;
 
 public class AdminViewController {
 
-
-    @FXML
-    private Button inputDataSiswa;
-    @FXML
-    private Button inputJadwalKelas;
-    @FXML
-    private Button bagiKelas;
     @FXML
     private Label adminNameLabel;
-    @FXML
-    private Button logOut;
 
-    private String id;
-    private String username;
+    private User user = new User();
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUser(User user) {
+        this.user = user;
         update();
     }
 
     @FXML
     void initialize() {
-        update();
     }
 
     void update() {
         try(Connection data = MainDataSource.getConnection()) {
-            if (id != null) {
+            if (user.id != null) {
                 PreparedStatement stmt = data.prepareStatement("SELECT * FROM admins WHERE id = ?");
-                stmt.setInt(1, Integer.parseInt(id));
+                stmt.setInt(1, Integer.parseInt(user.id));
                 // Execute the query
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
-                    username = rs.getString("name");
-                    adminNameLabel.setText("Admin: " + username);
+                    user.username = rs.getString("name");
+                    adminNameLabel.setText("Admin: " + user.username);
                 }
             }
         } catch (SQLException e) {
@@ -66,7 +56,7 @@ public class AdminViewController {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("admin-inputDataSiswa.fxml"));
             Parent root = loader.load();
             InputDataSiswaController inputDataSiswaController = loader.getController();
-            inputDataSiswaController.setId(id);
+            inputDataSiswaController.setUser(user);
             Scene scene = new Scene(root);
             app.getPrimaryStage().setScene(scene);
         } catch (IOException e) {
@@ -84,7 +74,7 @@ public class AdminViewController {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("admin-inputJadwalKelas.fxml"));
             Parent root = loader.load();
             InputJadwalKelasController inputJadwalKelasController = loader.getController();
-            inputJadwalKelasController.setId(id);
+            inputJadwalKelasController.setUser(user);
             Scene scene = new Scene(root);
             app.getPrimaryStage().setScene(scene);
         } catch (IOException e) {
@@ -102,7 +92,7 @@ public class AdminViewController {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("admin-membagiKelas.fxml"));
             Parent root = loader.load();
             MembagiKelasController membagiKelasController = loader.getController();
-            membagiKelasController.setId(id);
+            membagiKelasController.setUser(user);
             Scene scene = new Scene(root);
             app.getPrimaryStage().setScene(scene);
         } catch (IOException e) {

@@ -2,6 +2,7 @@ package com.example.bdsqltester.scenes.admin;
 
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.MainDataSource;
+import com.example.bdsqltester.dtos.User;
 import com.example.bdsqltester.scenes.siswa.SiswaViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,11 +38,11 @@ public class MembagiKelasController {
     private Label jumlahSiswaLabel;
     @FXML
     private Label waliKelasLabel;
-    
-    private String id;
 
-    public void setId(String id) {
-        this.id = id;
+    private User user = new User();
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @FXML
@@ -74,7 +75,7 @@ public class MembagiKelasController {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("admin-view.fxml"));
             Parent root = loader.load();
             AdminViewController adminController = loader.getController();
-            adminController.setId(id);
+            adminController.setUser(user);
             Scene scene = new Scene(root);
             app.getPrimaryStage().setScene(scene);
         }catch (IOException e){
@@ -92,7 +93,7 @@ public class MembagiKelasController {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("admin-TampilkanData.fxml"));
             Parent root = loader.load();
             TampilkanDataController tampilkanDataController = loader.getController();
-            tampilkanDataController.setId(id);
+            tampilkanDataController.setUser(user);
             Scene scene = new Scene(root);
             app.getPrimaryStage().setScene(scene);
         }catch (IOException e){

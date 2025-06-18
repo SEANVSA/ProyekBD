@@ -2,6 +2,7 @@ package com.example.bdsqltester.scenes.siswa;
 
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.MainDataSource;
+import com.example.bdsqltester.dtos.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,11 +19,11 @@ import java.sql.SQLException;
 
 public class SiswaBiodataController {
 
-    private String username;
-    private String id;
+    private User user = new User();
 
     @FXML
     private Label namaLengkap;
+
     @FXML
     private Label welcomeNama;
     @FXML
@@ -39,16 +40,11 @@ public class SiswaBiodataController {
     private Label alamat;
     @FXML
     private Label golonganDarah;
-
     @FXML
     private Button lihatDataOrangTua;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setUser(User user) {
+        this.user = user;
         updateBioPribadi();
     }
 
@@ -58,13 +54,13 @@ public class SiswaBiodataController {
     }
     void updateBioPribadi(){
         try (Connection data = MainDataSource.getConnection()){
-            if(id!=null) {
+            if(user.id!=null) {
                 PreparedStatement stmt = data.prepareStatement("SELECT * FROM siswa WHERE id_siswa = ?");
-                stmt.setInt(1, Integer.parseInt(id));
+                stmt.setInt(1, Integer.parseInt(user.id));
                 ResultSet rs = stmt.executeQuery();
 
                 if (rs.next()) {
-                    namaLengkap.setText("Nama Lengkap: " + username);
+                    namaLengkap.setText("Nama Lengkap: " + user.username);
                     tempatTanggalLahir.setText("Tempat/Tgl Lahir: " + rs.getString("tempat_tanggal_lahir_siswa"));
                     nomorIndukSiswa.setText("Nomor Induk Siswa: " + rs.getString("id_siswa"));
                     jenisKelamin.setText("Jenis Kelamin: " + rs.getString("gender_siswa"));
@@ -88,7 +84,7 @@ public class SiswaBiodataController {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("siswa-dataoOrangTua.fxml"));
             Parent root = loader.load();
             DataOrangTuaController dataOrangTuaController = loader.load();
-            dataOrangTuaController.setId(id);
+            dataOrangTuaController.setUser(user);
             Scene scene = new Scene(root);
             app.getPrimaryStage().setScene(scene);
         }catch (IOException e){
@@ -104,7 +100,7 @@ public class SiswaBiodataController {
         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("siswa-view.fxml"));
         Parent root = loader.load();
         SiswaViewController siswaViewController = loader.getController();
-        siswaViewController.setId(id);
+        siswaViewController.setUser(user);
         Scene scene = new Scene(root);
         app.getPrimaryStage().setScene(scene);
         }catch (IOException e){

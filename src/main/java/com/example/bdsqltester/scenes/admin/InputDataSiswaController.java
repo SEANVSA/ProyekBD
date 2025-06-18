@@ -2,6 +2,7 @@ package com.example.bdsqltester.scenes.admin;
 
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.MainDataSource;
+import com.example.bdsqltester.dtos.User;
 import com.example.bdsqltester.scenes.siswa.SiswaViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,10 +38,10 @@ public class InputDataSiswaController {
     @FXML
     private ChoiceBox<String> golonganDarahChoice;
 
-    private String id;
+    private User user = new User();
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @FXML
@@ -97,7 +98,7 @@ public class InputDataSiswaController {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("admin-view.fxml"));
             Parent root = loader.load();
             AdminViewController adminController = loader.getController();
-            adminController.setId(id);
+            adminController.setUser(user);
             Scene scene = new Scene(root);
             app.getPrimaryStage().setScene(scene);
         }catch (IOException e){

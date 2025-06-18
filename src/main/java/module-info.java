@@ -20,4 +20,6 @@ module com.example.bdsqltester {
     opens com.example.bdsqltester.scenes.guru to javafx.fxml;
     exports com.example.bdsqltester.scenes.walikelas;
     opens com.example.bdsqltester.scenes.walikelas to javafx.fxml;
+    exports com.example.bdsqltester.dtos;
+    opens com.example.bdsqltester.dtos to javafx.fxml;
 }
