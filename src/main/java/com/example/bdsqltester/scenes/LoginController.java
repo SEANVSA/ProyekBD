@@ -3,9 +3,9 @@ package com.example.bdsqltester.scenes;
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.MainDataSource;
 import com.example.bdsqltester.scenes.admin.AdminViewController;
-import com.example.bdsqltester.scenes.guru.GuruController;
+import com.example.bdsqltester.scenes.guru.GuruViewController;
 import com.example.bdsqltester.scenes.siswa.SiswaViewController;
-import com.example.bdsqltester.scenes.walikelas.WaliKelasController;
+import com.example.bdsqltester.scenes.walikelas.WaliKelasViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,8 +68,11 @@ public class LoginController {
 
     @FXML
     void initialize() {
+        idField.setText("andi_siswa");
+        passwordField.setText("hashed_pass1");
+
         selectRole.getItems().addAll("Admin", "Siswa", "Guru", "Wali Kelas");
-        selectRole.setValue("Admin");
+        selectRole.setValue("Siswa");
     }
 
     @FXML
@@ -111,7 +114,7 @@ public class LoginController {
 
                     FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("siswa-view.fxml"));
                     Parent root = loader.load();
-                    GuruController guruController = loader.getController();
+                    GuruViewController guruController = loader.getController();
                     guruController.setId(ref_id);
                     Scene scene = new Scene(root);
                     app.getPrimaryStage().setScene(scene);
@@ -121,7 +124,7 @@ public class LoginController {
 
                     FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("siswa-view.fxml"));
                     Parent root = loader.load();
-                    WaliKelasController waliKelasController = loader.getController();
+                    WaliKelasViewController waliKelasController = loader.getController();
                     waliKelasController.setId(ref_id);
                     Scene scene = new Scene(root);
                     app.getPrimaryStage().setScene(scene);

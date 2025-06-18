@@ -5,12 +5,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #f5f7fa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #f5f7fa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bdsqltester.scenes.siswa.SiswaJadwalController">
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
@@ -19,44 +18,25 @@
    <HBox alignment="CENTER" spacing="20.0">
       <Label fx:id="scheduleTitle" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Jadwal Pelajaran" />
       <Region HBox.hgrow="ALWAYS" />
-      <Button style="-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #e74c3c; -fx-background-radius: 5; -fx-padding: 5 15 5 15;" text="Close">
-         <effect>
-            <DropShadow color="rgba(0,0,0,0.1)" radius="3" />
-         </effect>
-      </Button>
    </HBox>
 
    <!-- Schedule Card -->
    <VBox alignment="CENTER" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);">
       <!-- Schedule Table -->
-      <TableView fx:id="scheduleTable" prefHeight="350.0" prefWidth="892.0">
-         <columns>
-            <TableColumn prefWidth="120" style="-fx-font-weight: bold;" text="Waktu">
-               <cellValueFactory>
-<!--                  <PropertyValueFactory property="time" />-->
-               </cellValueFactory>
-            </TableColumn>
-            <TableColumn prefWidth="148.0000457763672" text="Senin" />
-            <TableColumn prefWidth="140.0" text="Selasa" />
-            <TableColumn prefWidth="134.39996337890625" text="Rabu" />
-            <TableColumn minWidth="0.0" prefWidth="177.5999755859375" text="Kamis" />
-            <TableColumn prefWidth="172.00006103515625" text="Jumat" />
-         </columns>
-
-         <!-- Sample data rows (empty subjects as requested) -->
-         <items>
-<!--            <FXCollections fx:factory="observableArrayList">-->
-<!--               <ScheduleRow time="07.00 - 07.35" />-->
-<!--               <ScheduleRow time="07.35 - 08.10" />-->
-<!--               <ScheduleRow time="08.10 - 08.45" />-->
-<!--               <ScheduleRow time="08.45 - 09.15" />-->
-<!--               <ScheduleRow time="09.15 - 09.50" />-->
-<!--               <ScheduleRow time="09.50 - 10.25" />-->
-<!--               <ScheduleRow time="10.25 - 11.00" />-->
-<!--               <ScheduleRow time="11.00 - 11.35" />-->
-<!--            </FXCollections>-->
-         </items>
-      </TableView>
+       <TableView fx:id="scheduleTable" prefHeight="350.0" prefWidth="892.0">
+           <columns>
+               <TableColumn prefWidth="120" style="-fx-font-weight: bold;" text="Waktu">
+                   <cellValueFactory>
+                       <!--                  <PropertyValueFactory property="time" />-->
+                   </cellValueFactory>
+               </TableColumn>
+               <TableColumn prefWidth="148.0000457763672" text="Senin"/>
+               <TableColumn prefWidth="140.0" text="Selasa"/>
+               <TableColumn prefWidth="134.39996337890625" text="Rabu"/>
+               <TableColumn minWidth="0.0" prefWidth="177.5999755859375" text="Kamis"/>
+               <TableColumn prefWidth="172.00006103515625" text="Jumat"/>
+           </columns>
+       </TableView>
 
       <!-- Rest Time Note -->
       <Label style="-fx-font-style: italic; -fx-text-fill: #7f8c8d;" text="* Waktu istirahat: 09.15 - 09.50" />
@@ -64,6 +44,6 @@
 
    <!-- Back Button -->
    <HBox alignment="CENTER" style="-fx-padding: 20 0 0 0;">
-      <Button style="-fx-font-size: 14px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="Kembali" />
+      <Button onAction="#onKembaliClicked" style="-fx-font-size: 14px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="Kembali" />
    </HBox>
 </VBox>

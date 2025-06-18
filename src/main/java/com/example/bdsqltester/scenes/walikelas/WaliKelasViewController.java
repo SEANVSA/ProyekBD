@@ -1,4 +1,4 @@
-package com.example.bdsqltester.scenes.guru;
+package com.example.bdsqltester.scenes.walikelas;
 
 import com.example.bdsqltester.datasources.*;
 import javafx.fxml.FXML;
@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 
 import java.sql.*;
 
-public class GuruController {
+public class WaliKelasViewController {
     @FXML
     private Label nameLabel;
 
@@ -28,7 +28,7 @@ public class GuruController {
     private void updateNameLabel() {
         if (id != null) {
             try(Connection data = MainDataSource.getConnection()){
-                PreparedStatement stmt = data.prepareStatement("SELECT * FROM teachers WHERE nrp = ?");
+                PreparedStatement stmt = data.prepareStatement("SELECT * FROM wali_kelas WHERE nrp = ?");
                 stmt.setString(1, id);
                 // Execute the query
                 ResultSet rs = stmt.executeQuery();
