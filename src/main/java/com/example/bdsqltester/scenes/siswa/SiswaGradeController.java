@@ -2,7 +2,10 @@ package com.example.bdsqltester.scenes.siswa;
 
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.MainDataSource;
+import com.example.bdsqltester.dtos.TableViewGrade;
 import com.example.bdsqltester.dtos.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +15,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -22,11 +26,11 @@ import java.sql.SQLException;
 public class SiswaGradeController {
 
     @FXML
-    private TableView<String> gradesTable;
+    private TableView<TableViewGrade> gradesTable;
     @FXML
-    private TableColumn<String, String> mataPelajaranColumn;
+    private TableColumn<TableViewGrade, String> mataPelajaranColumn;
     @FXML
-    private TableColumn<String,Integer> nilaiColumn;
+    private TableColumn<TableViewGrade, Double> nilaiColumn;
     @FXML
     private ChoiceBox<String> semesterChoice;
     @FXML
@@ -51,9 +55,13 @@ public class SiswaGradeController {
     void initialize(){
         semesterChoice.getItems().addAll("1", "2");
         semesterChoice.setValue("1");
+
+        mataPelajaranColumn.setCellValueFactory(new PropertyValueFactory<>("mapel"));
+        nilaiColumn.setCellValueFactory(new PropertyValueFactory<>("nilai"));
     }
 
     void update(){
+        ObservableList<TableViewGrade> grades = FXCollections.observableArrayList();
         try (Connection data = MainDataSource.getConnection()){
             if (user.id != null) {
                 PreparedStatement stmt = data.prepareStatement("SELECT * FROM kelas WHERE id_kelas = (SELECT id_kelas FROM siswa WHERE id_siswa = ?)");
@@ -65,12 +73,19 @@ public class SiswaGradeController {
                     classLabel.setText("Kelas : "+rs.getString("nama_kelas"));
                 }
 
+
                 stmt = data.prepareStatement("SELECT nama_mata_pelajaran, nilai FROM nilai_ujian nilai JOIN mata_pelajaran mapel ON nilai.id_mata_pelajaran = mapel.id_mata_pelajaran WHERE id_siswa = ?");
                 stmt.setInt(1, Integer.parseInt(user.id));
 
                 rs = stmt.executeQuery();
                 while (rs.next()) {
+                    String mapel = rs.getString("nama_mata_pelajaran");
+                    double nilai = rs.getDouble("nilai");
+                    grades.add(new TableViewGrade(mapel,nilai));
                 }
+
+                gradesTable.setItems(grades);
+                System.out.println(gradesTable);
             }
         }catch (SQLException e){
             System.out.println("Error updateNameLabelSQL");

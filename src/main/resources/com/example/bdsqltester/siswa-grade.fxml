@@ -43,29 +43,14 @@
         <!-- Grades Table -->
         <TableView fx:id="gradesTable" prefHeight="300.0" prefWidth="600.0" style="-fx-font-size: 14px;">
             <columns>
-                <TableColumn fx:id="mataPelajaranColumn" prefWidth="200" text="Mata Pelajaran">
+                <TableColumn fx:id="mataPelajaranColumn" editable="false" prefWidth="293.5999755859375" sortable="false" text="Mata Pelajaran">
                     <cellValueFactory>
                         <!--                        <PropertyValueFactory property="subject" />-->
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="nilaiColumn" prefWidth="100" text="Nilai">
+                <TableColumn fx:id="nilaiColumn" editable="false" prefWidth="305.60003662109375" sortable="false" text="Nilai">
                     <cellValueFactory>
                         <!--                        <PropertyValueFactory property="grade" />-->
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn prefWidth="100" text="Proyek 1">
-                    <cellValueFactory>
-                        <!--                        <PropertyValueFactory property="project1" />-->
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn prefWidth="100" text="UTS">
-                    <cellValueFactory>
-                        <!--                        <PropertyValueFactory property="midTerm" />-->
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn prefWidth="100" text="UAS">
-                    <cellValueFactory>
-                        <!--                        <PropertyValueFactory property="finalExam" />-->
                     </cellValueFactory>
                 </TableColumn>
             </columns>
