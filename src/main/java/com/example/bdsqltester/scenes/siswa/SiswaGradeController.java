@@ -72,8 +72,8 @@ public class SiswaGradeController {
                     studentNameLabel.setText("Nilai Akademik "+user.username);
                     classLabel.setText("Kelas : "+rs.getString("nama_kelas"));
                 }
-
-
+                double nilai_total = 0;
+                int count = 0;
                 stmt = data.prepareStatement("SELECT nama_mata_pelajaran, nilai FROM nilai_ujian nilai JOIN mata_pelajaran mapel ON nilai.id_mata_pelajaran = mapel.id_mata_pelajaran WHERE id_siswa = ?");
                 stmt.setInt(1, Integer.parseInt(user.id));
 
@@ -81,10 +81,19 @@ public class SiswaGradeController {
                 while (rs.next()) {
                     String mapel = rs.getString("nama_mata_pelajaran");
                     double nilai = rs.getInt("nilai");
+                    nilai_total += nilai;
+                    count++;
                     grades.add(new TableViewGrade(mapel,nilai));
                 }
 
                 gradesTable.setItems(grades);
+                double average = nilai_total/count;
+                averageGradeLabel.setText(String.valueOf(average));
+                String predikat = "D";
+                if (average >= 93) predikat = "A";
+                else if (average >= 84) predikat = "B";
+                else if (average >= 75) predikat = "C";
+                predicateLabel.setText(predikat);
             }
         } catch (SQLException e){
             System.out.println("Error updateNameLabelSQL");
