@@ -56,8 +56,8 @@ public class SiswaGradeController {
         semesterChoice.getItems().addAll("1", "2");
         semesterChoice.setValue("1");
 
-        mataPelajaranColumn.setCellValueFactory(new PropertyValueFactory<>("mapel"));
-        nilaiColumn.setCellValueFactory(new PropertyValueFactory<>("nilai"));
+        mataPelajaranColumn.setCellValueFactory(new PropertyValueFactory<>("mapelName"));
+        nilaiColumn.setCellValueFactory(new PropertyValueFactory<>("gradeValue"));
     }
 
     void update(){
@@ -80,14 +80,13 @@ public class SiswaGradeController {
                 rs = stmt.executeQuery();
                 while (rs.next()) {
                     String mapel = rs.getString("nama_mata_pelajaran");
-                    double nilai = rs.getDouble("nilai");
+                    double nilai = rs.getInt("nilai");
                     grades.add(new TableViewGrade(mapel,nilai));
                 }
 
                 gradesTable.setItems(grades);
-                System.out.println(gradesTable);
             }
-        }catch (SQLException e){
+        } catch (SQLException e){
             System.out.println("Error updateNameLabelSQL");
         }
     }
