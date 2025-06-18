@@ -9,45 +9,44 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class TampilkanDataController {
 
 
     @FXML
-    private Button inputDataSiswa;
+    private ChoiceBox<String> tahunAjaranChoice;
     @FXML
-    private Button inputJadwalKelas;
+    private ChoiceBox<String> kelasChoice;
     @FXML
-    private Button bagiKelas;
+    private ChoiceBox<String> semesterChoice;
     @FXML
-    private Label adminNameLabel;
+    private TableView<String> siswaTable;
     @FXML
-    private Button logOut;
-
+    private Label jumlahSiswaLabel;
+    
     private String id;
-    private String username;
 
     public void setId(String id) {
         this.id = id;
-        update();
     }
 
     @FXML
     void initialize() {
-        update();
+        tahunAjaranChoice.getItems().addAll();
+        tahunAjaranChoice.setValue(null);
+
+        kelasChoice.getItems().addAll("I", "II", "III", "IV", "V", "VI");
+        kelasChoice.setValue(null);
+
+        semesterChoice.getItems().addAll("1", "2");
+        semesterChoice.setValue(null);
     }
-
-    void update() {
-
-    }
-
 
     @FXML
     void onKembaliClicked(ActionEvent actionEvent) {
@@ -65,5 +64,17 @@ public class TampilkanDataController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    void onTampilkanClicked(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    void onCetakDataClicked(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    void onExportExcelClicked(ActionEvent actionEvent) {
     }
 }

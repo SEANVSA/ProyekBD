@@ -8,8 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -21,32 +20,48 @@ public class MembagiKelasController {
 
 
     @FXML
-    private Button inputDataSiswa;
+    private TextField tahunAjaranField;
     @FXML
-    private Button inputJadwalKelas;
+    private ChoiceBox<String> tingkatKelasChoice;
     @FXML
-    private Button bagiKelas;
+    private ListView<String> unassignedStudentsList;
     @FXML
-    private Label adminNameLabel;
+    private ChoiceBox<String> kelasTujuanChoice;
     @FXML
-    private Button logOut;
-
+    private ChoiceBox<String> waliKelasChoice;
+    @FXML
+    private ListView<String> assignedStudentsList;
+    @FXML
+    private Label kelasLabel;
+    @FXML
+    private Label jumlahSiswaLabel;
+    @FXML
+    private Label waliKelasLabel;
+    
     private String id;
-    private String username;
 
     public void setId(String id) {
         this.id = id;
-        update();
     }
 
     @FXML
     void initialize() {
-        update();
+        tahunAjaranField.setPromptText("2023/2024");
+
+        tingkatKelasChoice.getItems().addAll();
+        tingkatKelasChoice.setValue(null);
+
+        kelasTujuanChoice.getItems().addAll();
+        kelasTujuanChoice.setValue(null);
+
+        waliKelasChoice.getItems().addAll();
+        waliKelasChoice.setValue(null);
+
+        kelasLabel.setText(null);
+        jumlahSiswaLabel.setText(null);
+        waliKelasLabel.setText(null);
     }
 
-    void update() {
-
-    }
 
 
     @FXML
@@ -83,5 +98,32 @@ public class MembagiKelasController {
         }catch (IOException e){
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    void onSimpanClicked(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    void onResetClicked(ActionEvent actionEvent) {
+        tahunAjaranField.setPromptText("2023/2024");
+        tingkatKelasChoice.setValue(null);
+        kelasTujuanChoice.setValue(null);
+        waliKelasChoice.setValue(null);
+        kelasLabel.setText(null);
+        jumlahSiswaLabel.setText(null);
+        waliKelasLabel.setText(null);
+    }
+
+    @FXML
+    void onTambahkanClicked(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    void onKembalikanClicked(ActionEvent actionEvent) {
+    }
+
+    @FXML
+     void onSimpanWaliKelasClicked(ActionEvent actionEvent) {
     }
 }

@@ -25,41 +25,15 @@
     <!-- Filter Controls -->
     <HBox alignment="CENTER" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);">
         <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Tahun Ajaran:" />
-        <ChoiceBox fx:id="tahunAjaranChoice" style="-fx-pref-width: 120px;">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-<!--                    <String fx:value="2023/2024" />-->
-<!--                    <String fx:value="2022/2023" />-->
-<!--                    <String fx:value="2021/2022" />-->
-                </FXCollections>
-            </items>
-        </ChoiceBox>
+        <ChoiceBox fx:id="tahunAjaranChoice" style="-fx-pref-width: 120px;"/>
 
         <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Kelas:" />
-        <ChoiceBox fx:id="kelasChoice" style="-fx-pref-width: 100px;">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-<!--                    <String fx:value="1" />-->
-<!--                    <String fx:value="2" />-->
-<!--                    <String fx:value="3" />-->
-<!--                    <String fx:value="4" />-->
-<!--                    <String fx:value="5" />-->
-<!--                    <String fx:value="6" />-->
-                </FXCollections>
-            </items>
-        </ChoiceBox>
+        <ChoiceBox fx:id="kelasChoice" style="-fx-pref-width: 100px;"/>
 
         <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Semester:" />
-        <ChoiceBox fx:id="semesterChoice" style="-fx-pref-width: 100px;">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-<!--                    <String fx:value="Ganjil" />-->
-<!--                    <String fx:value="Genap" />-->
-                </FXCollections>
-            </items>
-        </ChoiceBox>
+        <ChoiceBox fx:id="semesterChoice" style="-fx-pref-width: 100px;"/>
 
-        <Button style="-fx-font-size: 14px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 15 5 15;" text="Tampilkan" />
+        <Button onAction="#onTampilkanClicked" style="-fx-font-size: 14px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 15 5 15;" text="Tampilkan" />
     </HBox>
 
     <!-- Student Data Table -->
@@ -83,8 +57,8 @@
 
         <Region HBox.hgrow="ALWAYS" />
 
-        <Button style="-fx-font-size: 14px; -fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 15 5 15;" text="Cetak Data" />
-        <Button style="-fx-font-size: 14px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 15 5 15;" text="Export Excel" />
+        <Button onAction="#onCetakDataClicked" style="-fx-font-size: 14px; -fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 15 5 15;" text="Cetak Data" />
+        <Button onAction="#onExportExcelClicked" style="-fx-font-size: 14px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 15 5 15;" text="Export Excel" />
     </HBox>
 
     <!-- Navigation -->
