@@ -3,88 +3,82 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" prefHeight="374.0" prefWidth="597.0" spacing="20.0" style="-fx-background-color: #f5f7fa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bdsqltester.scenes.siswa.SiswaBiodataController">
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
-   <GridPane prefHeight="134.0" prefWidth="570.0">
-     <columnConstraints>
-         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         <ColumnConstraints hgrow="SOMETIMES" maxWidth="134.5999755859375" minWidth="10.0" prefWidth="98.39998779296874" />
-         <ColumnConstraints hgrow="SOMETIMES" maxWidth="360.00002441406247" minWidth="10.0" prefWidth="225.60001220703126" />
-       <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.79995727539062" minWidth="3.6000000000000227" prefWidth="73.20003662109377" />
-       <ColumnConstraints hgrow="SOMETIMES" maxWidth="105.4000244140625" minWidth="10.0" prefWidth="58.200042724609375" />
-     </columnConstraints>
-     <rowConstraints>
-         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-     </rowConstraints>
-      <children>
-      
-               <!-- Header Section -->
-         <Label fx:id="welcomeNama" prefHeight="55.0" prefWidth="208.0" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Biodata Siswa" GridPane.columnIndex="2" GridPane.rowIndex="2">
-            <padding>
-               <Insets bottom="10.0" />
-            </padding>
-         </Label>
-      </children>
-   </GridPane>
-   <HBox prefHeight="0.0" prefWidth="554.0" />
+<VBox alignment="TOP_CENTER" spacing="25.0" style="-fx-background-color: linear-gradient(to bottom, #f5f7fa, #e4e9f2);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bdsqltester.scenes.siswa.SiswaBiodataController">
+    <padding>
+        <Insets top="24" right="24" bottom="24" left="24"/>
+    </padding>
 
-   <!-- Main Content Card -->
-   <HBox alignment="CENTER" prefHeight="330.0" prefWidth="558.0" spacing="30.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);">
-      <!-- Student Data -->
-      <VBox alignment="TOP_LEFT" prefHeight="266.0" prefWidth="302.0" spacing="12.0" style="-fx-padding: 0 0 0 20;">
-         <GridPane hgap="15.0" prefHeight="316.0" prefWidth="282.0" vgap="10.0">
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="14.0">
+        <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 0, 2, 0, 1);" text="Biodata Siswa" />
+<!--        <Region HBox.hgrow="ALWAYS"/>-->
+        <Label fx:id="welcomeNama" style="-fx-font-size: 18px; -fx-text-fill: #7f8c8d; -fx-font-style: italic;" />
+    </HBox>
+
+    <!-- Main Content Card -->
+    <VBox alignment="CENTER" spacing="0.0" style="-fx-background-color: white; -fx-background-radius: 18; -fx-padding: 28 32 32 32; -fx-effect: dropshadow(gaussian, rgba(44,62,80,0.08), 16, 0, 0, 4);">
+        <GridPane hgap="20.0" vgap="16.0" style="-fx-padding: 0 0 20 0;">
             <columnConstraints>
-               <ColumnConstraints hgrow="NEVER" maxWidth="300.8" minWidth="150.0" prefWidth="300.8" />
-               <ColumnConstraints hgrow="NEVER" maxWidth="144.79996337890626" minWidth="0.0" prefWidth="0.0" />
+                <ColumnConstraints minWidth="180" prefWidth="200" halignment="RIGHT"/>
+                <ColumnConstraints minWidth="10" prefWidth="20" halignment="CENTER"/>
+                <ColumnConstraints minWidth="240" prefWidth="280" hgrow="ALWAYS"/>
             </columnConstraints>
-
-            <children>
-               <Label fx:id="namaLengkap" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Nama Lengkap:" />
-
-               <Label fx:id="tempatTanggalLahir" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Tempat/Tgl Lahir:" GridPane.rowIndex="1" />
-
-               <Label fx:id="nomorIndukSiswa" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Nomor Induk Siswa:" GridPane.rowIndex="2" />
-
-               <Label fx:id="jenisKelamin" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Jenis Kelamin:" GridPane.rowIndex="3" />
-
-               <Label fx:id="agama" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Agama:" GridPane.rowIndex="4" />
-
-               <Label fx:id="alamat" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Alamat:" GridPane.rowIndex="5" />
-
-               <Label fx:id="nomorTelepon" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Nomor Telepon:" GridPane.rowIndex="6" />
-
-               <Label fx:id="golonganDarah" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Golongan Darah:" GridPane.rowIndex="7" />
-
-               <!-- Parent Data Button -->
-               <Button fx:id="lihatDataOrangTua" onAction="#onLihatDataOrangTuaClicked" prefHeight="30.0" prefWidth="315.0" style="-fx-font-size: 14px; -fx-pref-width: 200px; -fx-pref-height: 40px; -fx-background-color: #9b59b6; -fx-text-fill: white; -fx-background-radius: 5; -fx-margin: 20 0 0 0;" text="Lihat Data Orang Tua" GridPane.rowIndex="8" />
-            </children>
             <rowConstraints>
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
+                <RowConstraints minHeight="36" prefHeight="36" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="36" prefHeight="36" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="36" prefHeight="36" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="36" prefHeight="36" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="36" prefHeight="36" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="36" prefHeight="36" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="36" prefHeight="36" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="36" prefHeight="36" vgrow="SOMETIMES"/>
             </rowConstraints>
-         </GridPane>
-      </VBox>
-   </HBox>
+            <children>
+                <!-- Label Column -->
+                <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d; -fx-font-size: 15px;" text="Nama Lengkap:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d; -fx-font-size: 15px;" text="Tempat/Tgl Lahir:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d; -fx-font-size: 15px;" text="Nomor Induk Siswa:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d; -fx-font-size: 15px;" text="Jenis Kelamin:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d; -fx-font-size: 15px;" text="Agama:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d; -fx-font-size: 15px;" text="Alamat:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d; -fx-font-size: 15px;" text="Nomor Telepon:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d; -fx-font-size: 15px;" text="Golongan Darah:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
 
-   <!-- Navigation Buttons -->
-   <HBox alignment="CENTER" spacing="20.0">
-      <Button fx:id="kembali" onAction="#onKembaliClicked" style="-fx-font-size: 14px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="Kembali" />
-   </HBox>
+                <!-- Separator Column -->
+                <Label style="-fx-text-fill: #bdc3c7;" text=":" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label style="-fx-text-fill: #bdc3c7;" text=":" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label style="-fx-text-fill: #bdc3c7;" text=":" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label style="-fx-text-fill: #bdc3c7;" text=":" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                <Label style="-fx-text-fill: #bdc3c7;" text=":" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                <Label style="-fx-text-fill: #bdc3c7;" text=":" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                <Label style="-fx-text-fill: #bdc3c7;" text=":" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                <Label style="-fx-text-fill: #bdc3c7;" text=":" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+                <!-- Value Column -->
+                <Label fx:id="namaLengkap" style="-fx-text-fill: #34495e; -fx-font-size: 15px;" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <Label fx:id="tempatTanggalLahir" style="-fx-text-fill: #34495e; -fx-font-size: 15px;" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <Label fx:id="nomorIndukSiswa" style="-fx-text-fill: #34495e; -fx-font-size: 15px;" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                <Label fx:id="jenisKelamin" style="-fx-text-fill: #34495e; -fx-font-size: 15px;" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                <Label fx:id="agama" style="-fx-text-fill: #34495e; -fx-font-size: 15px;" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
+                <Label fx:id="alamat" style="-fx-text-fill: #34495e; -fx-font-size: 15px;" GridPane.rowIndex="5" GridPane.columnIndex="2"/>
+                <Label fx:id="nomorTelepon" style="-fx-text-fill: #34495e; -fx-font-size: 15px;" GridPane.rowIndex="6" GridPane.columnIndex="2"/>
+                <Label fx:id="golonganDarah" style="-fx-text-fill: #34495e; -fx-font-size: 15px;" GridPane.rowIndex="7" GridPane.columnIndex="2"/>
+            </children>
+        </GridPane>
+
+        <!-- Button Lihat Data Orang Tua -->
+        <Button fx:id="lihatDataOrangTua" onAction="#onLihatDataOrangTuaClicked" style="-fx-font-size: 15px; -fx-pref-width: 280px; -fx-pref-height: 42px; -fx-background-color: linear-gradient(to right, #9b59b6, #8e44ad); -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(155,89,182,0.3), 8, 0, 0, 2);" text="Lihat Data Orang Tua" />
+    </VBox>
+
+    <!-- Navigation Button -->
+    <HBox alignment="CENTER" style="-fx-padding: 18 0 0 0;">
+        <Button fx:id="kembali" onAction="#onKembaliClicked" style="-fx-font-size: 15px; -fx-pref-width: 130px; -fx-pref-height: 40px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 8;" text="Kembali" />
+    </HBox>
 </VBox>
