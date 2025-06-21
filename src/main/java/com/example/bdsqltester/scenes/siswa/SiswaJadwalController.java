@@ -2,18 +2,14 @@ package com.example.bdsqltester.scenes.siswa;
 
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.MainDataSource;
-import com.example.bdsqltester.dtos.TableViewGrade;
 import com.example.bdsqltester.dtos.TableViewJadwal;
 import com.example.bdsqltester.dtos.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -38,8 +34,6 @@ public class SiswaJadwalController {
     private TableColumn<TableViewJadwal, String> kamisColumn= new TableColumn<>();
     @FXML
     private TableColumn<TableViewJadwal, String> jumatColumn;
-    @FXML
-    private Label scheduleTitle;
 
 
     private User user = new User();
@@ -70,10 +64,10 @@ public class SiswaJadwalController {
                     jam.add(rs.getTimestamp("jam_jadwal_kelas"));
                 }
 
-                for (int i = 0; i < jam.size(); i++) {
+                for (Timestamp timestamp : jam) {
                     stmt = data.prepareStatement("SELECT jk.hari_jadwal_kelas, nama_mata_pelajaran FROM jadwal_kelas jk JOIN mata_pelajaran mapel ON jk.id_mata_pelajaran =  mapel.id_mata_pelajaran WHERE jk.id_kelas = (SELECT id_kelas FROM siswa WHERE nomor_induk_siswa = ?) AND jam_jadwal_kelas = ? ORDER BY hari_jadwal_kelas;");
                     stmt.setString(1, user.id);
-                    stmt.setTimestamp(2, jam.get(i));
+                    stmt.setTimestamp(2, timestamp);
 
                     String senin = null;
                     String selasa = null;
@@ -82,27 +76,28 @@ public class SiswaJadwalController {
                     String jumat = null;
 
                     rs = stmt.executeQuery();
-                    while (rs.next()){
+                    while (rs.next()) {
                         String hari = rs.getString("hari_jadwal_kelas").toLowerCase();
-                        if (hari.equals("senin")) senin = rs.getString("nama_mata_pelajaran");
-                        else if (hari.equals("selasa")) selasa = rs.getString("nama_mata_pelajaran");
-                        else if (hari.equals("rabu")) rabu = rs.getString("nama_mata_pelajaran");
-                        else if (hari.equals("kamis")) kamis = rs.getString("nama_mata_pelajaran");
-                        else if (hari.equals("jumat")) jumat = rs.getString("nama_mata_pelajaran");
+                        switch (hari) {
+                            case "senin" -> senin = rs.getString("nama_mata_pelajaran");
+                            case "selasa" -> selasa = rs.getString("nama_mata_pelajaran");
+                            case "rabu" -> rabu = rs.getString("nama_mata_pelajaran");
+                            case "kamis" -> kamis = rs.getString("nama_mata_pelajaran");
+                            case "jumat" -> jumat = rs.getString("nama_mata_pelajaran");
+                        }
                     }
-                    jadwal.add(new TableViewJadwal(jam.get(i),senin,selasa,rabu,kamis,jumat));
+                    jadwal.add(new TableViewJadwal(timestamp, senin, selasa, rabu, kamis, jumat));
                 }
                 scheduleTable.setItems(jadwal);
             }
         }catch (SQLException e){
-            System.out.println("Error updateNameLabelSQL");
-            System.out.println(e);
+            System.out.println("Error updateNameLabelSQL: "+e);
         }
     }
 
 
     @FXML
-    void onKembaliClicked(ActionEvent actionEvent) {
+    void onKembaliClicked() {
         try {
             HelloApplication app = HelloApplication.getApplicationInstance();
             app.getPrimaryStage().setTitle("Siswa View");

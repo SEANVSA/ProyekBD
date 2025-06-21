@@ -3,12 +3,8 @@ package com.example.bdsqltester.scenes.siswa;
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.*;
 import com.example.bdsqltester.dtos.User;
-import com.sun.tools.javac.Main;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.fxml.*;
+import javafx.scene.*;
 import javafx.scene.control.*;
 
 import java.io.IOException;
@@ -57,7 +53,7 @@ public class DataOrangTuaController {
                 }
             }
         }catch (SQLException e){
-            System.out.println(e);
+            System.out.println("Error update SQL: "+e);
         }
     }
 
@@ -78,26 +74,26 @@ public class DataOrangTuaController {
                 }
             }
         }catch (SQLException e){
-            System.out.println(e);
+            System.out.println("Error SQL updateOrangTua:"+e);
         }
     }
 
     @FXML
-    void onPrevClicked(ActionEvent actionEvent) {
+    void onPrevClicked() {
         if (index+1 < idOrtu.size()) index++;
         else index = 0;
         updateOrangTua(index);
     }
 
     @FXML
-    void onNextClicked(ActionEvent actionEvent) {
+    void onNextClicked() {
         if (index-1 >= 0) index--;
         else index = idOrtu.size()-1;
         updateOrangTua(index);
     }
     
     @FXML
-    void onKembaliClicked(ActionEvent actionEvent) {
+    void onKembaliClicked() {
         try {
             HelloApplication app = HelloApplication.getApplicationInstance();
 

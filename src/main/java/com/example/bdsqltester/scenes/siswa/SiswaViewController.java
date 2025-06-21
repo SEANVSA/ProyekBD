@@ -3,7 +3,6 @@ package com.example.bdsqltester.scenes.siswa;
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.*;
 import com.example.bdsqltester.dtos.User;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,7 +28,7 @@ public class SiswaViewController {
             if (user.id != null) {
                 PreparedStatement stmt = data.prepareStatement("SELECT * FROM siswa WHERE nomor_induk_siswa = ?");
                 stmt.setString(1, user.id);
-                // Execute the query
+                
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
                     user.username = rs.getString("nama_siswa");
@@ -45,7 +44,7 @@ public class SiswaViewController {
         updateNameLabel();
     }
     @FXML
-    void onBiodataButtonClicked(ActionEvent actionEvent){
+    void onBiodataButtonClicked(){
         try {
             HelloApplication app = HelloApplication.getApplicationInstance();
             // Load the user view
@@ -62,7 +61,7 @@ public class SiswaViewController {
         }
     }
     @FXML
-    void onScheduleButtonClicked(ActionEvent actionEvent){
+    void onScheduleButtonClicked(){
         try {
             HelloApplication app = HelloApplication.getApplicationInstance();
             // Load the user view
@@ -79,7 +78,7 @@ public class SiswaViewController {
         }
     }
     @FXML
-    void onGradeButtonClicked(ActionEvent actionEvent){
+    void onGradeButtonClicked(){
         try {
             HelloApplication app = HelloApplication.getApplicationInstance();
             // Load the user view
@@ -96,7 +95,7 @@ public class SiswaViewController {
         }
     }
     @FXML
-    void onBackToLoginClicked(ActionEvent actionEvent){
+    void onBackToLoginClicked(){
         try {
             HelloApplication app = HelloApplication.getApplicationInstance();
             // Load the user view

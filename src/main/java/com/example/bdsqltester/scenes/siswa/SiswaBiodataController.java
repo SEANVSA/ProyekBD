@@ -3,19 +3,12 @@ package com.example.bdsqltester.scenes.siswa;
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.MainDataSource;
 import com.example.bdsqltester.dtos.User;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.fxml.*;
+import javafx.scene.*;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class SiswaBiodataController {
 
@@ -23,9 +16,6 @@ public class SiswaBiodataController {
 
     @FXML
     private Label namaLengkap;
-
-    @FXML
-    private Label welcomeNama;
     @FXML
     private Label tempatTanggalLahir;
     @FXML
@@ -40,8 +30,6 @@ public class SiswaBiodataController {
     private Label alamat;
     @FXML
     private Label golonganDarah;
-    @FXML
-    private Button lihatDataOrangTua;
 
     public void setUser(User user) {
         this.user = user;
@@ -76,7 +64,7 @@ public class SiswaBiodataController {
     }
 
     @FXML
-    void onLihatDataOrangTuaClicked(ActionEvent actionEvent) {
+    void onLihatDataOrangTuaClicked() {
         try {
             HelloApplication app = HelloApplication.getApplicationInstance();
             app.getPrimaryStage().setTitle("Data Orang Tua");
@@ -92,7 +80,7 @@ public class SiswaBiodataController {
         }
     }
     @FXML
-    void onKembaliClicked(ActionEvent actionEvent) {
+    void onKembaliClicked() {
         try {
         HelloApplication app = HelloApplication.getApplicationInstance();
         app.getPrimaryStage().setTitle("Siswa View");
