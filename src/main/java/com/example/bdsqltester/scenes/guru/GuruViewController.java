@@ -29,7 +29,7 @@ public class GuruViewController {
     private void updateNameLabel() {
         if (user.id != null) {
             try(Connection data = MainDataSource.getConnection()){
-                PreparedStatement stmt = data.prepareStatement("SELECT * FROM teachers WHERE nrp = ?");
+                PreparedStatement stmt = data.prepareStatement("SELECT * FROM teachers WHERE nip = ?");
                 stmt.setString(1, user.id);
                 // Execute the query
                 ResultSet rs = stmt.executeQuery();

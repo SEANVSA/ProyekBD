@@ -55,19 +55,19 @@ public class SiswaBiodataController {
     void updateBioPribadi(){
         try (Connection data = MainDataSource.getConnection()){
             if(user.id!=null) {
-                PreparedStatement stmt = data.prepareStatement("SELECT * FROM siswa WHERE id_siswa = ?");
-                stmt.setInt(1, Integer.parseInt(user.id));
+                PreparedStatement stmt = data.prepareStatement("SELECT * FROM siswa WHERE nomor_induk_siswa = ?");
+                stmt.setString(1, user.id);
                 ResultSet rs = stmt.executeQuery();
 
                 if (rs.next()) {
-                    namaLengkap.setText("Nama Lengkap: " + user.username);
-                    tempatTanggalLahir.setText("Tempat/Tgl Lahir: " + rs.getString("tempat_tanggal_lahir_siswa"));
-                    nomorIndukSiswa.setText("Nomor Induk Siswa: " + rs.getString("id_siswa"));
-                    jenisKelamin.setText("Jenis Kelamin: " + rs.getString("gender_siswa"));
-                    agama.setText("Agama: " + rs.getString("agama"));
-                    alamat.setText("Alamat: ");
-                    nomorTelepon.setText("Nomor Telepon: ");
-                    golonganDarah.setText("Golongan Darah: ");
+                    namaLengkap.setText(user.username);
+                    tempatTanggalLahir.setText(rs.getString("tempat_lahir_siswa") +", "+rs.getString("tanggal_lahir_siswa"));
+                    nomorIndukSiswa.setText(rs.getString("nomor_induk_siswa"));
+                    jenisKelamin.setText(rs.getString("gender_siswa"));
+                    agama.setText(rs.getString("agama"));
+                    alamat.setText(rs.getString("alamat"));
+                    nomorTelepon.setText(rs.getString("no_hp"));
+                    golonganDarah.setText(rs.getString("golongan_darah"));
                 }
             }
         } catch (SQLException e) {
@@ -81,9 +81,9 @@ public class SiswaBiodataController {
             HelloApplication app = HelloApplication.getApplicationInstance();
             app.getPrimaryStage().setTitle("Data Orang Tua");
 
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("siswa-dataoOrangTua.fxml"));
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("siswa-dataOrangTua.fxml"));
             Parent root = loader.load();
-            DataOrangTuaController dataOrangTuaController = loader.load();
+            DataOrangTuaController dataOrangTuaController = loader.getController();
             dataOrangTuaController.setUser(user);
             Scene scene = new Scene(root);
             app.getPrimaryStage().setScene(scene);

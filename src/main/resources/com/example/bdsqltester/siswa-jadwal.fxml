@@ -23,23 +23,16 @@
    <!-- Schedule Card -->
    <VBox alignment="CENTER" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);">
       <!-- Schedule Table -->
-       <TableView fx:id="scheduleTable" prefHeight="350.0" prefWidth="892.0">
+       <TableView fx:id="scheduleTable"  prefHeight="350.0" prefWidth="892.0">
            <columns>
-               <TableColumn prefWidth="120" style="-fx-font-weight: bold;" text="Waktu">
-                   <cellValueFactory>
-                       <!--                  <PropertyValueFactory property="time" />-->
-                   </cellValueFactory>
-               </TableColumn>
-               <TableColumn prefWidth="148.0000457763672" text="Senin"/>
-               <TableColumn prefWidth="140.0" text="Selasa"/>
-               <TableColumn prefWidth="134.39996337890625" text="Rabu"/>
-               <TableColumn minWidth="0.0" prefWidth="177.5999755859375" text="Kamis"/>
-               <TableColumn prefWidth="172.00006103515625" text="Jumat"/>
+               <TableColumn fx:id="waktuColumn" prefWidth="120" style="-fx-font-weight: bold;" text="Waktu" />
+               <TableColumn fx:id="seninColumn" prefWidth="148.0000457763672" text="Senin" />
+               <TableColumn fx:id="selasaColumn" prefWidth="140.0" text="Selasa" />
+               <TableColumn fx:id="rabuColumn" prefWidth="134.39996337890625" text="Rabu" />
+               <TableColumn fx:id="kamisColumn" minWidth="0.0" prefWidth="177.5999755859375" text="Kamis" />
+               <TableColumn fx:id="jumatColumn" prefWidth="172.00006103515625" text="Jumat" />
            </columns>
        </TableView>
-
-      <!-- Rest Time Note -->
-      <Label style="-fx-font-style: italic; -fx-text-fill: #7f8c8d;" text="* Waktu istirahat: 09.15 - 09.50" />
    </VBox>
 
    <!-- Back Button -->

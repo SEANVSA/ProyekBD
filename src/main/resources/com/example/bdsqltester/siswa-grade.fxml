@@ -42,17 +42,17 @@
                         <!-- PropertyValueFactory property="namaMataPelajaran" -->
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn prefWidth="120" text="UTS">
+                <TableColumn fx:id="utsGradeColumn" prefWidth="120" text="UTS">
                     <cellValueFactory>
                         <!-- PropertyValueFactory property="nilaiUts" -->
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn prefWidth="120" text="UAS">
+                <TableColumn fx:id="uasGradeColumn" prefWidth="120" text="UAS">
                     <cellValueFactory>
                         <!-- PropertyValueFactory property="nilaiUas" -->
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn prefWidth="120" text="Rata-rata">
+                <TableColumn fx:id="rataRataColumn" prefWidth="120" text="Rata-rata">
                     <cellValueFactory>
                         <!-- PropertyValueFactory property="rataRata" -->
                     </cellValueFactory>

@@ -32,8 +32,8 @@ public class AdminViewController {
     void update() {
         try(Connection data = MainDataSource.getConnection()) {
             if (user.id != null) {
-                PreparedStatement stmt = data.prepareStatement("SELECT * FROM admins WHERE id = ?");
-                stmt.setInt(1, Integer.parseInt(user.id));
+                PreparedStatement stmt = data.prepareStatement("SELECT * FROM admins WHERE admin_code = ?");
+                stmt.setString(1, user.id);
                 // Execute the query
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {

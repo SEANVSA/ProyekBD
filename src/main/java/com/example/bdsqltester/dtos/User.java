@@ -23,7 +23,7 @@ public class User {
     }
 
     public User(ResultSet rs) throws SQLException {
-        this.id = rs.getString("ref_id");
+        this.id = rs.getString("login_id");
         this.password = rs.getString("password");
         this.role = rs.getString("role");
     }

@@ -66,11 +66,11 @@ public class LoginController {
 
     @FXML
     void initialize() {
-        idField.setText("andi_siswa");
-        passwordField.setText("hashed_pass1");
+        idField.setText("G001");
+        passwordField.setText("guru123");
 
         selectRole.getItems().addAll("Admin", "Siswa", "Guru", "Wali Kelas");
-        selectRole.setValue("Siswa");
+        selectRole.setValue("Guru");
     }
 
     @FXML

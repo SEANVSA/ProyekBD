@@ -2,7 +2,11 @@ package com.example.bdsqltester.scenes.siswa;
 
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.MainDataSource;
+import com.example.bdsqltester.dtos.TableViewGrade;
+import com.example.bdsqltester.dtos.TableViewJadwal;
 import com.example.bdsqltester.dtos.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,26 +14,90 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class SiswaJadwalController {
 
     @FXML
+    private TableView<TableViewJadwal> scheduleTable;
+    @FXML
+    private TableColumn<TableViewJadwal, String> waktuColumn = new TableColumn<>();
+    @FXML
+    private TableColumn<TableViewJadwal, String> seninColumn= new TableColumn<>();
+    @FXML
+    private TableColumn<TableViewJadwal, String> selasaColumn= new TableColumn<>();
+    @FXML
+    private TableColumn<TableViewJadwal, String> rabuColumn= new TableColumn<>();
+    @FXML
+    private TableColumn<TableViewJadwal, String> kamisColumn= new TableColumn<>();
+    @FXML
+    private TableColumn<TableViewJadwal, String> jumatColumn;
+    @FXML
     private Label scheduleTitle;
 
-    @FXML
-    private TableView<String> scheduleTable;
 
     private User user = new User();
 
     public void setUser(User user) {
         this.user = user;
+        update();
+    }
+
+    @FXML
+    void initialize(){
+        waktuColumn.setCellValueFactory(new PropertyValueFactory<>("waktu"));
+        seninColumn.setCellValueFactory(new PropertyValueFactory<>("senin"));
+        selasaColumn.setCellValueFactory(new PropertyValueFactory<>("selasa"));
+        rabuColumn.setCellValueFactory(new PropertyValueFactory<>("rabu"));
+        kamisColumn.setCellValueFactory(new PropertyValueFactory<>("kamis"));
+        jumatColumn.setCellValueFactory(new PropertyValueFactory<>("jumat"));
+    }
+
+    void update(){
+        ObservableList<TableViewJadwal> jadwal = FXCollections.observableArrayList();
+        ArrayList<Timestamp> jam = new ArrayList<>();
+        try (Connection data = MainDataSource.getConnection()){
+            if (user.id != null) {
+                PreparedStatement stmt = data.prepareStatement("SELECT DISTINCT jam_jadwal_kelas FROM jadwal_kelas ORDER BY jam_jadwal_kelas");
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()){
+                    jam.add(rs.getTimestamp("jam_jadwal_kelas"));
+                }
+
+                for (int i = 0; i < jam.size(); i++) {
+                    stmt = data.prepareStatement("SELECT jk.hari_jadwal_kelas, nama_mata_pelajaran FROM jadwal_kelas jk JOIN mata_pelajaran mapel ON jk.id_mata_pelajaran =  mapel.id_mata_pelajaran WHERE jk.id_kelas = (SELECT id_kelas FROM siswa WHERE nomor_induk_siswa = ?) AND jam_jadwal_kelas = ? ORDER BY hari_jadwal_kelas;");
+                    stmt.setString(1, user.id);
+                    stmt.setTimestamp(2, jam.get(i));
+
+                    String senin = null;
+                    String selasa = null;
+                    String rabu = null;
+                    String kamis = null;
+                    String jumat = null;
+
+                    rs = stmt.executeQuery();
+                    while (rs.next()){
+                        String hari = rs.getString("hari_jadwal_kelas").toLowerCase();
+                        if (hari.equals("senin")) senin = rs.getString("nama_mata_pelajaran");
+                        else if (hari.equals("selasa")) selasa = rs.getString("nama_mata_pelajaran");
+                        else if (hari.equals("rabu")) rabu = rs.getString("nama_mata_pelajaran");
+                        else if (hari.equals("kamis")) kamis = rs.getString("nama_mata_pelajaran");
+                        else if (hari.equals("jumat")) jumat = rs.getString("nama_mata_pelajaran");
+                    }
+                    jadwal.add(new TableViewJadwal(jam.get(i),senin,selasa,rabu,kamis,jumat));
+                }
+                scheduleTable.setItems(jadwal);
+            }
+        }catch (SQLException e){
+            System.out.println("Error updateNameLabelSQL");
+            System.out.println(e);
+        }
     }
 
 

@@ -14,20 +14,9 @@ import java.io.IOException;
 import java.sql.*;
 
 public class SiswaViewController {
-    @FXML
-    private Button backToLogin;
 
     @FXML
     private Label nameLabel;
-
-    @FXML
-    private Button biodataButton;
-
-    @FXML
-    private Button scheduleButton;
-
-    @FXML
-    private Button gradeButton;
 
     private User user = new User();
 
@@ -38,8 +27,8 @@ public class SiswaViewController {
     private void updateNameLabel() {
         try (Connection data = MainDataSource.getConnection()){
             if (user.id != null) {
-                PreparedStatement stmt = data.prepareStatement("SELECT * FROM siswa WHERE id_siswa = ?");
-                stmt.setInt(1, Integer.parseInt(user.id));
+                PreparedStatement stmt = data.prepareStatement("SELECT * FROM siswa WHERE nomor_induk_siswa = ?");
+                stmt.setString(1, user.id);
                 // Execute the query
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
@@ -99,7 +88,7 @@ public class SiswaViewController {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("siswa-grade.fxml"));
             Parent root = loader.load();
             SiswaGradeController siswaGradeController = loader.getController();
-            siswaGradeController.setUser(user);
+            siswaGradeController.setUser(user );
             Scene scene = new Scene(root);
             app.getPrimaryStage().setScene(scene);
         } catch (IOException e) {

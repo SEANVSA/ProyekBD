@@ -5,24 +5,40 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class TableViewGrade {
     private final SimpleStringProperty mapelName;
-    private final SimpleDoubleProperty gradeValue;
+    private final SimpleDoubleProperty utsValue;
+    private final SimpleDoubleProperty uasValue;
+    private final SimpleDoubleProperty rataRataValue;
 
-    public TableViewGrade(String mapelName, double gradeValue){
+    public TableViewGrade(String mapelName, double utsValue, double uasValue, double rataRataValue){
         this.mapelName = new SimpleStringProperty(mapelName);
-        this.gradeValue = new SimpleDoubleProperty(gradeValue);
+        this.utsValue = new SimpleDoubleProperty(utsValue);
+        this.uasValue = new SimpleDoubleProperty(uasValue);
+        this.rataRataValue = new SimpleDoubleProperty(rataRataValue);
     }
 
     public String getMapelName() {
         return mapelName.get();
     }
-    public double getGradeValue() {
-        return gradeValue.get();
+    public double getUtsValue() {
+        return utsValue.get();
+    }
+    public double getUasValue() {
+        return uasValue.get();
+    }
+    public double getRataRataValue() {
+        return rataRataValue.get();
     }
 
+    public SimpleDoubleProperty rataRataValueProperty() {
+        return rataRataValue;
+    }
+    public SimpleDoubleProperty uasValueProperty() {
+        return uasValue;
+    }
     public SimpleStringProperty mapelNameProperty() {
         return mapelName;
     }
-    public SimpleDoubleProperty gradeValueProperty() {
-        return gradeValue;
+    public SimpleDoubleProperty utsValueProperty() {
+        return utsValue;
     }
 }

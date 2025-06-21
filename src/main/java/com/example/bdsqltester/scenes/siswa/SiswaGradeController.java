@@ -25,12 +25,17 @@ import java.sql.SQLException;
 
 public class SiswaGradeController {
 
+
     @FXML
     private TableView<TableViewGrade> gradesTable;
     @FXML
-    private TableColumn<TableViewGrade, String> mataPelajaranColumn;
+    private TableColumn<TableViewGrade, String> mataPelajaranColumn = new TableColumn<>();
     @FXML
-    private TableColumn<TableViewGrade, Double> nilaiColumn;
+    private TableColumn<TableViewGrade, Double> utsGradeColumn = new TableColumn<>();
+    @FXML
+    private TableColumn<TableViewGrade, Double> uasGradeColumn = new TableColumn<>();
+    @FXML
+    private TableColumn<TableViewGrade, Double> rataRataColumn = new TableColumn<>();
     @FXML
     private ChoiceBox<String> semesterChoice;
     @FXML
@@ -55,39 +60,49 @@ public class SiswaGradeController {
     void initialize(){
         semesterChoice.getItems().addAll("1", "2");
         semesterChoice.setValue("1");
+        semesterChoice.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                update();
+            }
+        });
 
         mataPelajaranColumn.setCellValueFactory(new PropertyValueFactory<>("mapelName"));
-        nilaiColumn.setCellValueFactory(new PropertyValueFactory<>("gradeValue"));
+        utsGradeColumn.setCellValueFactory(new PropertyValueFactory<>("utsValue"));
+        uasGradeColumn.setCellValueFactory(new PropertyValueFactory<>("uasValue"));
+        rataRataColumn.setCellValueFactory(new PropertyValueFactory<>("rataRataValue"));
     }
 
     void update(){
         ObservableList<TableViewGrade> grades = FXCollections.observableArrayList();
         try (Connection data = MainDataSource.getConnection()){
             if (user.id != null) {
-                PreparedStatement stmt = data.prepareStatement("SELECT * FROM kelas WHERE id_kelas = (SELECT id_kelas FROM siswa WHERE id_siswa = ?)");
-                stmt.setInt(1, Integer.parseInt(user.id));
+                PreparedStatement stmt = data.prepareStatement("SELECT * FROM kelas WHERE id_kelas = (SELECT id_kelas FROM siswa WHERE nomor_induk_siswa = ?)");
+                stmt.setString(1, user.id);
 
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
                     studentNameLabel.setText("Nilai Akademik "+user.username);
                     classLabel.setText("Kelas : "+rs.getString("nama_kelas"));
                 }
-                double nilai_total = 0;
+                double rataRataTotal = 0;
                 int count = 0;
-                stmt = data.prepareStatement("SELECT nama_mata_pelajaran, nilai FROM nilai_ujian nilai JOIN mata_pelajaran mapel ON nilai.id_mata_pelajaran = mapel.id_mata_pelajaran WHERE id_siswa = ?");
-                stmt.setInt(1, Integer.parseInt(user.id));
+                stmt = data.prepareStatement("SELECT nama_mata_pelajaran, uts, uas FROM nilai_ujian nilai JOIN mata_pelajaran mapel ON nilai.id_mata_pelajaran = mapel.id_mata_pelajaran WHERE nomor_induk_siswa = ? AND semester = ?");
+                stmt.setString(1, user.id);
+                stmt.setString(2, semesterChoice.getValue());
 
                 rs = stmt.executeQuery();
                 while (rs.next()) {
                     String mapel = rs.getString("nama_mata_pelajaran");
-                    double nilai = rs.getInt("nilai");
-                    nilai_total += nilai;
-                    count++;
-                    grades.add(new TableViewGrade(mapel,nilai));
+                    double uts = rs.getInt("uts");
+                    double uas = rs.getInt("uas");
+                    double rataRata = (uts+uas)/2;
+                    rataRataTotal += rataRata;
+                    count += 1;
+                    grades.add(new TableViewGrade(mapel,uts,uas, rataRata));
                 }
 
                 gradesTable.setItems(grades);
-                double average = nilai_total/count;
+                double average = rataRataTotal/count;
                 averageGradeLabel.setText(String.valueOf(average));
                 String predikat = "D";
                 if (average >= 93) predikat = "A";

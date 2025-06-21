@@ -30,7 +30,7 @@ public class WaliKelasViewController {
     private void updateNameLabel() {
         if (user.id != null) {
             try(Connection data = MainDataSource.getConnection()){
-                PreparedStatement stmt = data.prepareStatement("SELECT * FROM wali_kelas WHERE nrp = ?");
+                PreparedStatement stmt = data.prepareStatement("SELECT * FROM wali_kelas WHERE nip_guru = ?");
                 stmt.setString(1, user.id);
                 // Execute the query
                 ResultSet rs = stmt.executeQuery();
