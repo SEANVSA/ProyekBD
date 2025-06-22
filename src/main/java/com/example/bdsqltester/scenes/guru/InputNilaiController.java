@@ -34,8 +34,6 @@ public class InputNilaiController {
     @FXML
     private Label guruNameLabel;
     @FXML
-    private Label labelJudulDaftar;
-    @FXML
     private TableView<TableInputGrade> nilaiTable;
     @FXML
     private TableColumn<TableViewGrade,Integer> noColumn;
@@ -56,6 +54,7 @@ public class InputNilaiController {
     public void setUser(User user) {
         this.user = user;
         initializeComboBox();
+        guruNameLabel.setText(user.username);
     }
 
     @FXML
@@ -69,25 +68,51 @@ public class InputNilaiController {
     }
 
     void initializeComboBox(){
-
+        ObservableList<String> mapelList = FXCollections.observableArrayList();
+        ObservableList<String> kelasList = FXCollections.observableArrayList();
+        try (Connection data = MainDataSource.getConnection()){
+            PreparedStatement stmt = data.prepareStatement("SELECT DISTINCT nama_mata_pelajaran FROM mata_pelajaran");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                mapelList.add(rs.getString("nama_mata_pelajaran"));
+            }
+            stmt = data.prepareStatement("SELECT nama_kelas FROM kelas");
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                kelasList.add(rs.getString("nama_kelas"));
+            }
+            mapelComboBox.setItems(mapelList);
+            kelasComboBox.setItems(kelasList);
+        }catch (SQLException e){
+            System.out.println("Error updateNameLabelSQL");
+        }
     }
 
     @FXML
     void onTampilkanSiswaClicked(ActionEvent actionEvent) {
-        try {
-            HelloApplication app = HelloApplication.getApplicationInstance();
-            app.getPrimaryStage().setTitle("Tampilan Siswa");
+        if (kelasComboBox.getValue() != null) {
+            try {
+                HelloApplication app = HelloApplication.getApplicationInstance();
+                app.getPrimaryStage().setTitle("Tampilan Siswa");
 
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("guru-inputTampilkanSiswa.fxml"));
-            Parent root = loader.load();
+                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("guru-inputTampilkanSiswa.fxml"));
+                Parent root = loader.load();
 
-            InputTampilkanSiswa inputTampilkanSiswa = loader.getController();
-            inputTampilkanSiswa.setUser(user);
+                InputTampilkanSiswa inputTampilkanSiswa = loader.getController();
+                inputTampilkanSiswa.setUser(user);
+                inputTampilkanSiswa.setKelas(kelasComboBox.getValue());
 
-            Scene scene = new Scene(root);
-            app.getPrimaryStage().setScene(scene);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+                Scene scene = new Scene(root);
+                app.getPrimaryStage().setScene(scene);
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Kelas not Set");
+            alert.setContentText("Please set Kelas first");
+            alert.showAndWait();
         }
     }
 
