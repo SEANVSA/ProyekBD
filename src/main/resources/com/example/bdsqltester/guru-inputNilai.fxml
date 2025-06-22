@@ -6,13 +6,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" spacing="18.0" style="-fx-background-color: #f5f7fa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" spacing="18.0" style="-fx-background-color: #f5f7fa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bdsqltester.scenes.guru.InputNilaiController">
     <padding>
         <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
     </padding>
@@ -21,39 +22,43 @@
     <HBox alignment="CENTER" spacing="20.0">
         <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Input Nilai Mata Pelajaran" />
         <Region HBox.hgrow="ALWAYS" />
-        <Button style="-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #e74c3c; -fx-background-radius: 5; -fx-padding: 5 15 5 15;" text="Close">
-            <effect>
-                <DropShadow color="rgba(0,0,0,0.1)" radius="3" />
-            </effect>
-        </Button>
     </HBox>
 
     <!-- Info Mata Pelajaran & Kelas -->
-    <GridPane hgap="18" vgap="8" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 18; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 0);">
-        <Label text="Mata Pelajaran:" style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #34495e;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <ComboBox fx:id="mapelComboBox" promptText="Pilih Mata Pelajaran" prefWidth="200" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-        <Label text="Kelas:" style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #34495e;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <ComboBox fx:id="kelasComboBox" promptText="Pilih Kelas" prefWidth="120" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-        <Button text="Tampilkan Siswa" style="-fx-font-size: 14px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;" GridPane.rowIndex="0" GridPane.columnIndex="2" GridPane.rowSpan="2"/>
+    <GridPane hgap="18" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 18; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 0);" vgap="8">
+        <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #34495e;" text="Mata Pelajaran:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <ComboBox fx:id="mapelComboBox" prefWidth="200" promptText="Pilih Mata Pelajaran" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #34495e;" text="Kelas:" GridPane.rowIndex="3" />
+        <ComboBox fx:id="kelasComboBox" prefWidth="120" promptText="Pilih Kelas" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Button onAction="#onTampilkanSiswaClicked" style="-fx-font-size: 14px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;" text="Tampilkan Siswa" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+      <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
     </GridPane>
 
     <!-- Daftar Siswa dan Input Nilai -->
     <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 0);">
-        <Label fx:id="labelJudulDaftar" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Daftar Siswa dan Input Nilai"/>
+        <Label fx:id="labelJudulDaftar" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Daftar Siswa dan Input Nilai" />
         <TableView fx:id="nilaiTable" prefHeight="340.0" prefWidth="900.0">
             <columns>
-                <TableColumn prefWidth="50" text="No" />
-                <TableColumn prefWidth="200" text="Nama Siswa" />
-                <TableColumn prefWidth="100" text="NIS" />
-                <TableColumn prefWidth="90" text="Proyek" />
-                <TableColumn prefWidth="90" text="UTS" />
-                <TableColumn prefWidth="90" text="UAS" />
-                <TableColumn prefWidth="90" text="Tugas" />
-                <TableColumn prefWidth="130" text="Catatan" />
+                <TableColumn fx:id="noColumn" prefWidth="50" text="No" />
+                <TableColumn fx:id="namaSiswaColumn" prefWidth="200" text="Nama Siswa" />
+                <TableColumn fx:id="nisColumn" prefWidth="183.20001220703125" text="NIS" />
+                <TableColumn fx:id="utsColumn" minWidth="7.20001220703125" prefWidth="124.79995727539062" text="UTS" />
+                <TableColumn fx:id="uasColumn" prefWidth="130.4000244140625" text="UAS" />
+                <TableColumn fx:id="catatanColumn" prefWidth="211.199951171875" text="Catatan" />
             </columns>
         </TableView>
         <HBox alignment="CENTER_RIGHT" spacing="12.0">
-            <Button text="Simpan Semua Nilai" style="-fx-font-size: 16px; -fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5; -fx-pref-width: 200px;"/>
+            <Button onAction="#onSimpanSemuaNilaiClicked" style="-fx-font-size: 16px; -fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5; -fx-pref-width: 200px;" text="Simpan Semua Nilai" />
         </HBox>
     </VBox>
 
@@ -64,6 +69,6 @@
 
     <!-- Back Button -->
     <HBox alignment="CENTER" style="-fx-padding: 18 0 0 0;">
-        <Button style="-fx-font-size: 14px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="Kembali" />
+        <Button onAction="#onKembaliClicked" style="-fx-font-size: 14px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="Kembali" />
     </HBox>
 </VBox>

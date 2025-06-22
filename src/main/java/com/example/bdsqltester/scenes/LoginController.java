@@ -92,36 +92,44 @@ public class LoginController {
                     // Load fxml and set the scene
                     FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("admin-view.fxml"));
                     Parent root = loader.load();
+                    //pass the user to the next controller
                     AdminViewController adminController = loader.getController();
                     adminController.setUser(user);
+
                     Scene scene = new Scene(root);
                     app.getPrimaryStage().setScene(scene);
                 } else if (role.equals("Siswa")){
-                    // Load the user view
+                    // Load the Siswa view
                     app.getPrimaryStage().setTitle("Siswa View");
 
                     FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("siswa-view.fxml"));
                     Parent root = loader.load();
+                    //pass the user to the next controller
                     SiswaViewController siswaViewController = loader.getController();
                     siswaViewController.setUser(user);
+
                     Scene scene = new Scene(root);
                     app.getPrimaryStage().setScene(scene);
                 } else if (role.equals("Guru")){
-                    // Load the user view
+                    // Load the Guru view
                     app.getPrimaryStage().setTitle("Guru View");
 
                     FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("guru-view.fxml"));
                     Parent root = loader.load();
+                    //pass the user to the next controller
                     GuruViewController guruController = loader.getController();
+                    guruController.setUser(user);
                     Scene scene = new Scene(root);
                     app.getPrimaryStage().setScene(scene);
                 } else if (role.equals("Wali Kelas")){
-                    // Load the user view
+                    // Load the wali Kelas view
                     app.getPrimaryStage().setTitle("Wali Kelas View");
 
                     FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("guru-walikelasView.fxml"));
                     Parent root = loader.load();
+                    //pass the user to the next controller
                     WaliKelasViewController waliKelasController = loader.getController();
+                    waliKelasController.setUser(user);
                     Scene scene = new Scene(root);
                     app.getPrimaryStage().setScene(scene);
                 }

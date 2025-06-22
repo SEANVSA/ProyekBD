@@ -16,7 +16,7 @@
 
    <!-- Header with Close Button -->
    <HBox alignment="CENTER" spacing="20.0">
-      <Label fx:id="scheduleTitle" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Jadwal Pelajaran" />
+      <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Jadwal Pelajaran" />
       <Region HBox.hgrow="ALWAYS" />
    </HBox>
 
