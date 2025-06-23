@@ -32,6 +32,6 @@
     <!-- User Info and Logout -->
     <HBox alignment="CENTER_RIGHT" spacing="15.0">
         <Label fx:id="guruNameLabel" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;" text="Guru: Nama Guru" />
-        <Button fx:id="onLogOutClicked" style="-fx-font-size: 14px; -fx-pref-width: 100px; -fx-pref-height: 35px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="LogOut" />
+        <Button onAction="#onLogOutClicked" style="-fx-font-size: 14px; -fx-pref-width: 100px; -fx-pref-height: 35px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="LogOut" />
     </HBox>
 </VBox>

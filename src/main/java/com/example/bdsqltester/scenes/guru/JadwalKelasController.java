@@ -4,6 +4,7 @@ import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.MainDataSource;
 import com.example.bdsqltester.dtos.TableViewJadwal;
 import com.example.bdsqltester.dtos.User;
+import com.example.bdsqltester.scenes.walikelas.WaliKelasViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -97,16 +98,29 @@ public class JadwalKelasController {
     void onKembaliClicked() {
         try {
             HelloApplication app = HelloApplication.getApplicationInstance();
-            app.getPrimaryStage().setTitle("Guru View");
+            if (user.role.equals("Wali Kelas")) {
+                app.getPrimaryStage().setTitle("Wali Kelas View");
 
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("guru-view.fxml"));
-            Parent root = loader.load();
+                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("guru-walikelasView.fxml"));
+                Parent root = loader.load();
 
-            GuruViewController guruController = loader.getController();
-            guruController.setUser(user);
+                WaliKelasViewController waliKelasController = loader.getController();
+                waliKelasController.setUser(user);
 
-            Scene scene = new Scene(root);
-            app.getPrimaryStage().setScene(scene);
+                Scene scene = new Scene(root);
+                app.getPrimaryStage().setScene(scene);
+            }else {
+                app.getPrimaryStage().setTitle("Guru View");
+
+                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("guru-view.fxml"));
+                Parent root = loader.load();
+
+                GuruViewController guruController = loader.getController();
+                guruController.setUser(user);
+
+                Scene scene = new Scene(root);
+                app.getPrimaryStage().setScene(scene);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
