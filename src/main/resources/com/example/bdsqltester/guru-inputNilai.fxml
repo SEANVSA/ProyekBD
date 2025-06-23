@@ -30,13 +30,16 @@
         <ComboBox fx:id="mapelComboBox" prefWidth="200" promptText="Pilih Mata Pelajaran" GridPane.columnIndex="1" GridPane.rowIndex="0" />
         <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #34495e;" text="Kelas:" GridPane.rowIndex="3" />
         <ComboBox fx:id="kelasComboBox" prefWidth="120" promptText="Pilih Kelas" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <Button onAction="#onTampilkanSiswaClicked" style="-fx-font-size: 14px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;" text="Tampilkan Siswa" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+        <Button onAction="#onTampilkanSiswaClicked" style="-fx-font-size: 14px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;" text="Tampilkan Siswa" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.rowSpan="2" />
+      <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #34495e;" text="Semester:" GridPane.rowIndex="2" />
+      <ComboBox fx:id="kelasComboBox2" prefWidth="120" promptText="Pilih Semester" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <columnConstraints>
          <ColumnConstraints />
          <ColumnConstraints />
          <ColumnConstraints />
       </columnConstraints>
       <rowConstraints>
+         <RowConstraints />
          <RowConstraints />
          <RowConstraints />
          <RowConstraints />
@@ -52,9 +55,8 @@
                 <TableColumn fx:id="noColumn" prefWidth="50" text="No" />
                 <TableColumn fx:id="namaSiswaColumn" prefWidth="200" text="Nama Siswa" />
                 <TableColumn fx:id="nisColumn" prefWidth="183.20001220703125" text="NIS" />
-                <TableColumn fx:id="utsColumn" minWidth="7.20001220703125" prefWidth="124.79995727539062" text="UTS" />
-                <TableColumn fx:id="uasColumn" prefWidth="130.4000244140625" text="UAS" />
-                <TableColumn fx:id="catatanColumn" prefWidth="211.199951171875" text="Catatan" />
+                <TableColumn fx:id="utsColumn" minWidth="7.20001220703125" prefWidth="231.99990844726562" text="UTS" />
+                <TableColumn fx:id="uasColumn" prefWidth="233.60003662109375" text="UAS" />
             </columns>
         </TableView>
         <HBox alignment="CENTER_RIGHT" spacing="12.0">
@@ -71,4 +73,5 @@
     <HBox alignment="CENTER" style="-fx-padding: 18 0 0 0;">
         <Button onAction="#onKembaliClicked" style="-fx-font-size: 14px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="Kembali" />
     </HBox>
+   <ComboBox fx:id="kelasComboBox1" prefWidth="120" promptText="Pilih Kelas" />
 </VBox>
