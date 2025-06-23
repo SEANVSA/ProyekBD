@@ -52,7 +52,7 @@
                         <!-- PropertyValueFactory property="nilaiUas" -->
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="rataRataColumn" prefWidth="120" text="Rata-rata">
+                <TableColumn fx:id="rataRataColumn" prefWidth="159.199951171875" text="Rata-rata">
                     <cellValueFactory>
                         <!-- PropertyValueFactory property="rataRata" -->
                     </cellValueFactory>

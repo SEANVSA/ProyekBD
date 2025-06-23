@@ -8,23 +8,18 @@ import com.example.bdsqltester.dtos.TableViewGrade;
 import com.example.bdsqltester.scenes.walikelas.WaliKelasViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.util.converter.DoubleStringConverter;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class InputNilaiController {
 
@@ -34,20 +29,6 @@ public class InputNilaiController {
     private ComboBox<String> kelasComboBox;
     @FXML
     private Label guruNameLabel;
-    @FXML
-    private TableView<TableInputGrade> nilaiTable;
-    @FXML
-    private TableColumn<TableViewGrade,Integer> noColumn;
-    @FXML
-    private TableColumn<TableViewGrade,String> namaSiswaColumn;
-    @FXML
-    private TableColumn<TableViewGrade,String> nisColumn;
-    @FXML
-    private TableColumn<TableViewGrade,Double> utsColumn;
-    @FXML
-    private TableColumn<TableViewGrade,Double> uasColumn;
-    @FXML
-    private TableColumn<TableViewGrade,String> catatanColumn;
 
     private User user = new User();
 
@@ -59,12 +40,6 @@ public class InputNilaiController {
 
     @FXML
     void initialize() {
-        noColumn.setCellValueFactory(new PropertyValueFactory<>("no"));
-        namaSiswaColumn.setCellValueFactory(new PropertyValueFactory<>("namaSiswa"));
-        nisColumn.setCellValueFactory(new PropertyValueFactory<>("nis"));
-        utsColumn.setCellValueFactory(new PropertyValueFactory<>("uts"));
-        uasColumn.setCellValueFactory(new PropertyValueFactory<>("uas"));
-        catatanColumn.setCellValueFactory(new PropertyValueFactory<>("catatan"));
     }
 
     void initializeComboBox(){
@@ -148,6 +123,6 @@ public class InputNilaiController {
         }
     }
     @FXML
-    void onSimpanSemuaNilaiClicked() {
+    void onSimpanNilaiClicked() {
     }
 }
