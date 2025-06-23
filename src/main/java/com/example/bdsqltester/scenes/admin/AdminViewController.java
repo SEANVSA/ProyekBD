@@ -37,7 +37,7 @@ public class AdminViewController {
                 // Execute the query
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
-                    user.username = rs.getString("name");
+                    user.username = rs.getString("nama_admin");
                     adminNameLabel.setText("Admin: " + user.username);
                 }
             }

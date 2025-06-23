@@ -5,6 +5,7 @@ import com.example.bdsqltester.datasources.MainDataSource;
 import com.example.bdsqltester.dtos.TableInputGrade;
 import com.example.bdsqltester.dtos.User;
 import com.example.bdsqltester.dtos.TableViewGrade;
+import com.example.bdsqltester.scenes.walikelas.WaliKelasViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -49,12 +50,11 @@ public class InputNilaiController {
     private TableColumn<TableViewGrade,String> catatanColumn;
 
     private User user = new User();
-    private final Map<String, String> studentNameToIdMap = new HashMap<>();
 
     public void setUser(User user) {
         this.user = user;
         initializeComboBox();
-        guruNameLabel.setText(user.username);
+        guruNameLabel.setText("Guru: "+user.username);
     }
 
     @FXML
@@ -89,7 +89,7 @@ public class InputNilaiController {
     }
 
     @FXML
-    void onTampilkanSiswaClicked(ActionEvent actionEvent) {
+    void onTampilkanSiswaClicked() {
         if (kelasComboBox.getValue() != null) {
             try {
                 HelloApplication app = HelloApplication.getApplicationInstance();
@@ -117,22 +117,37 @@ public class InputNilaiController {
     }
 
     @FXML
-    void onKembaliClicked(ActionEvent event) {
+    void onKembaliClicked() {
         try {
             HelloApplication app = HelloApplication.getApplicationInstance();
-            app.getPrimaryStage().setTitle("Guru View");
+            if (user.role.equals("Wali Kelas")) {
+                app.getPrimaryStage().setTitle("Wali Kelas View");
 
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("guru-view.fxml"));
-            Parent root = loader.load();
-            GuruViewController guruController = loader.getController();
-            guruController.setUser(user);
-            Scene scene = new Scene(root);
-            app.getPrimaryStage().setScene(scene);
+                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("guru-walikelasView.fxml"));
+                Parent root = loader.load();
+
+                WaliKelasViewController waliKelasController = loader.getController();
+                waliKelasController.setUser(user);
+
+                Scene scene = new Scene(root);
+                app.getPrimaryStage().setScene(scene);
+            }else {
+                app.getPrimaryStage().setTitle("Guru View");
+
+                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("guru-view.fxml"));
+                Parent root = loader.load();
+
+                GuruViewController guruController = loader.getController();
+                guruController.setUser(user);
+
+                Scene scene = new Scene(root);
+                app.getPrimaryStage().setScene(scene);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
     @FXML
-    void onSimpanSemuaNilaiClicked(ActionEvent actionEvent) {
+    void onSimpanSemuaNilaiClicked() {
     }
 }

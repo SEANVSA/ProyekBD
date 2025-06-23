@@ -6,12 +6,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" spacing="18.0" style="-fx-background-color: #f5f7fa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" spacing="18.0" style="-fx-background-color: #f5f7fa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bdsqltester.scenes.walikelas.CetakRaporController">
     <padding>
         <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
     </padding>
@@ -20,11 +19,6 @@
     <HBox alignment="CENTER" spacing="18.0">
         <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Cetak Rapor Siswa" />
         <Region HBox.hgrow="ALWAYS" />
-        <Button style="-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #e74c3c; -fx-background-radius: 5; -fx-padding: 5 15 5 15;" text="Close">
-            <effect>
-                <DropShadow color="rgba(0,0,0,0.1)" radius="3" />
-            </effect>
-        </Button>
     </HBox>
 
     <!-- Pilih Kelas & Siswa -->
@@ -71,6 +65,6 @@
 
     <!-- Back Button -->
     <HBox alignment="CENTER" style="-fx-padding: 18 0 0 0;">
-        <Button style="-fx-font-size: 14px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="Kembali" />
+        <Button onAction="#onKembaliClicked" style="-fx-font-size: 14px; -fx-pref-width: 120px; -fx-pref-height: 35px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="Kembali" />
     </HBox>
 </VBox>

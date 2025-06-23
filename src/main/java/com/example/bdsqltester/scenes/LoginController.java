@@ -31,6 +31,7 @@ public class LoginController {
     private TextField idField;
 
     private User user;
+    private boolean wakiKelas = false;
 
     boolean verifyCredentials(String username, String password, String role) throws SQLException {
         // Call the database to verify the credentials
@@ -52,7 +53,19 @@ public class LoginController {
                 String dbPassword = rs.getString("password");
 
                 if (dbPassword.equals(password)) {
+                    if (role.equalsIgnoreCase("guru")) {
+                        try {
+                            stmt = data.prepareStatement("SELECT * FROM wali_kelas WHERE nip_guru = ?");
+                            stmt.setString(1, username);
+
+                            ResultSet ts = stmt.executeQuery();
+                            if (ts.next()) wakiKelas = true;
+                        } catch (SQLException e) {
+                            return false;
+                        }
+                    }
                     user = new User(rs);
+                    if (wakiKelas) user.role = "Wali Kelas";
                     return true; // Credentials are valid
                 }
             }
@@ -66,11 +79,11 @@ public class LoginController {
 
     @FXML
     void initialize() {
-        idField.setText("G001");
-        passwordField.setText("guru123");
+        idField.setText("ADM01");
+        passwordField.setText("admin123");
 
-        selectRole.getItems().addAll("Admin", "Siswa", "Guru", "Wali Kelas");
-        selectRole.setValue("Guru");
+        selectRole.getItems().addAll("Admin", "Siswa", "Guru");
+        selectRole.setValue("Admin");
     }
 
     @FXML
@@ -110,28 +123,30 @@ public class LoginController {
 
                     Scene scene = new Scene(root);
                     app.getPrimaryStage().setScene(scene);
-                } else if (role.equals("Guru")){
-                    // Load the Guru view
-                    app.getPrimaryStage().setTitle("Guru View");
+                }  else if (role.equals("Guru")){
+                    if (wakiKelas) {
+                        app.getPrimaryStage().setTitle("Wali Kelas View");
 
-                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("guru-view.fxml"));
-                    Parent root = loader.load();
-                    //pass the user to the next controller
-                    GuruViewController guruController = loader.getController();
-                    guruController.setUser(user);
-                    Scene scene = new Scene(root);
-                    app.getPrimaryStage().setScene(scene);
-                } else if (role.equals("Wali Kelas")){
-                    // Load the wali Kelas view
-                    app.getPrimaryStage().setTitle("Wali Kelas View");
+                        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("guru-walikelasView.fxml"));
+                        Parent root = loader.load();
 
-                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("guru-walikelasView.fxml"));
-                    Parent root = loader.load();
-                    //pass the user to the next controller
-                    WaliKelasViewController waliKelasController = loader.getController();
-                    waliKelasController.setUser(user);
-                    Scene scene = new Scene(root);
-                    app.getPrimaryStage().setScene(scene);
+                        WaliKelasViewController waliKelasController = loader.getController();
+                        waliKelasController.setUser(user);
+
+                        Scene scene = new Scene(root);
+                        app.getPrimaryStage().setScene(scene);
+                    }else {
+                        app.getPrimaryStage().setTitle("Guru View");
+
+                        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("guru-view.fxml"));
+                        Parent root = loader.load();
+
+                        GuruViewController guruController = loader.getController();
+                        guruController.setUser(user);
+
+                        Scene scene = new Scene(root);
+                        app.getPrimaryStage().setScene(scene);
+                    }
                 }
             } else {
                 // Show an error message
