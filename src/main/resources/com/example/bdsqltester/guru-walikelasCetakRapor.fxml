@@ -21,13 +21,20 @@
         <Region HBox.hgrow="ALWAYS" />
     </HBox>
 
-    <!-- Pilih Kelas & Siswa -->
+    <!-- Pilih Kelas, Siswa, Tahun Ajaran, Semester -->
     <HBox alignment="CENTER" spacing="16.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 14;">
-        <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #34495e;" text="Kelas:" />
-        <ComboBox fx:id="kelasComboBox" prefWidth="130" promptText="Pilih Kelas" />
-        <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #34495e;" text="Siswa:" />
+        <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #34495e;" text="Siswa (NIS):" />
         <ComboBox fx:id="siswaComboBox" prefWidth="180" promptText="Pilih Siswa" />
-        <Button style="-fx-font-size: 14px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;" text="Tampilkan Rapor" />
+        <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #34495e;" text="Tahun Ajaran:" />
+        <ComboBox fx:id="tahunAjaranComboBox" prefWidth="120" promptText="Pilih Tahun" />
+        <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #34495e;" text="Semester:" />
+        <ComboBox fx:id="semesterComboBox" prefWidth="100" promptText="Pilih Semester" />
+    </HBox>
+
+    <!-- Nama Siswa -->
+    <HBox alignment="CENTER_LEFT" spacing="12.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10 18 10 18;">
+        <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Nama Siswa:" />
+        <Label fx:id="namaSiswaLabel" style="-fx-font-size: 15px; -fx-text-fill: #34495e;" text="-" />
     </HBox>
 
     <!-- Tabel Rapor -->
@@ -35,32 +42,26 @@
         <Label fx:id="judulRaporLabel" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Rapor Siswa" />
         <TableView fx:id="raporTable" prefHeight="340.0" prefWidth="700.0">
             <columns>
-                <TableColumn prefWidth="60" text="No" />
-                <TableColumn prefWidth="220" text="Mata Pelajaran" />
-                <TableColumn prefWidth="110" text="Nilai UTS" />
-                <TableColumn prefWidth="110" text="Nilai UAS" />
-                <TableColumn prefWidth="110" text="Nilai Tugas" />
-            <TableColumn prefWidth="88.00006103515625" text="Nilai Proyek" />
-                <!-- Tambah kolom lain jika ada jenis ujian lain -->
+                <TableColumn fx:id="mapelColumn" prefWidth="220" text="Mata Pelajaran" />
+                <TableColumn fx:id="utsColumn" prefWidth="162.4000244140625" text="Nilai UTS" />
+                <TableColumn fx:id="uasColumn" prefWidth="124.79986572265625" text="Nilai UAS" />
+                <TableColumn fx:id="rataRataColumn" prefWidth="155.99993896484375" text="Rata-rata" />
             </columns>
-            <!--
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <RaporRow no="1" mapel="Matematika" uts="80" uas="85" tugas="90" />
-                    <RaporRow no="2" mapel="Bahasa Indonesia" uts="78" uas="82" tugas="88" />
-                </FXCollections>
-            </items>
-            -->
         </TableView>
+        <!-- Nilai Akhir di bawah tabel -->
+        <HBox alignment="CENTER_RIGHT" spacing="16.0">
+            <Label style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Nilai Akhir:" />
+            <Label fx:id="nilaiAkhirLabel" style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #27ae60;" text="0" />
+        </HBox>
         <HBox alignment="CENTER_RIGHT" spacing="12.0">
-            <Button style="-fx-font-size: 15px; -fx-background-color: #f1c40f; -fx-text-fill: #2c3e50; -fx-background-radius: 5;" text="Cetak/Unduh PDF" />
+            <Button onAction="#onCetakPdfClicked" style="-fx-font-size: 15px; -fx-background-color: #f1c40f; -fx-text-fill: #2c3e50; -fx-background-radius: 5;" text="Cetak/Unduh PDF" />
         </HBox>
     </VBox>
 
     <!-- Info Kelas dan Wali -->
     <HBox alignment="CENTER_LEFT" spacing="10.0">
-        <Label fx:id="kelasLabel" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;" text="Kelas: X IPA 1" />
-        <Label fx:id="waliLabel" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;" text="Wali Kelas: Nama Wali" />
+        <Label fx:id="kelasLabel" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;" text="Kelas: -" />
+        <Label fx:id="waliLabel" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;" text="Wali Kelas: -" />
     </HBox>
 
     <!-- Back Button -->
