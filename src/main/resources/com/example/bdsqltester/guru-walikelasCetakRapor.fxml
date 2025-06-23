@@ -42,10 +42,10 @@
         <Label fx:id="judulRaporLabel" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Rapor Siswa" />
         <TableView fx:id="raporTable" prefHeight="340.0" prefWidth="700.0">
             <columns>
-                <TableColumn fx:id="mapelColumn" prefWidth="220" text="Mata Pelajaran" />
-                <TableColumn fx:id="utsColumn" prefWidth="162.4000244140625" text="Nilai UTS" />
-                <TableColumn fx:id="uasColumn" prefWidth="124.79986572265625" text="Nilai UAS" />
-                <TableColumn fx:id="rataRataColumn" prefWidth="155.99993896484375" text="Rata-rata" />
+                <TableColumn fx:id="mapelColumn" prefWidth="248.80004155635834" text="Mata Pelajaran" />
+                <TableColumn fx:id="utsColumn" prefWidth="176.79998779296875" text="Nilai UTS" />
+                <TableColumn fx:id="uasColumn" prefWidth="149.59991455078125" text="Nilai UAS" />
+                <TableColumn fx:id="rataRataColumn" prefWidth="148.0" text="Rata-rata" />
             </columns>
         </TableView>
         <!-- Nilai Akhir di bawah tabel -->

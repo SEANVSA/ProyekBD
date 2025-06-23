@@ -14,15 +14,23 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class InputNilaiController {
 
+    @FXML
+    private Label namaSiswaLabel;
+    @FXML
+    private TextField utsTextField;
+    @FXML
+    private TextField uasTextField;
+    @FXML
+    private ComboBox<String> nisComboBox;
+    @FXML
+    private ComboBox<String> semesterComboBox;
     @FXML
     private ComboBox<String> mapelComboBox;
     @FXML
@@ -45,13 +53,17 @@ public class InputNilaiController {
     void initializeComboBox(){
         ObservableList<String> mapelList = FXCollections.observableArrayList();
         ObservableList<String> kelasList = FXCollections.observableArrayList();
+        semesterComboBox.getItems().addAll("1","2");
+        semesterComboBox.setValue("1");
         try (Connection data = MainDataSource.getConnection()){
-            PreparedStatement stmt = data.prepareStatement("SELECT DISTINCT nama_mata_pelajaran FROM mata_pelajaran");
+            PreparedStatement stmt = data.prepareStatement("SELECT DISTINCT nama_mata_pelajaran FROM mata_pelajaran mapel JOIN jadwal_kelas jk ON mapel.id_mata_pelajaran = jk.id_mata_pelajaran WHERE jk.nip_guru = ?");
+            stmt.setString(1,user.id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 mapelList.add(rs.getString("nama_mata_pelajaran"));
             }
-            stmt = data.prepareStatement("SELECT nama_kelas FROM kelas");
+            stmt = data.prepareStatement("SELECT DISTINCT nama_kelas FROM mata_pelajaran mapel JOIN jadwal_kelas jk ON mapel.id_mata_pelajaran = jk.id_mata_pelajaran JOIN kelas k ON k.id_kelas = jk.id_kelas WHERE jk.nip_guru = ?");
+            stmt.setString(1, user.id);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 kelasList.add(rs.getString("nama_kelas"));
@@ -124,5 +136,78 @@ public class InputNilaiController {
     }
     @FXML
     void onSimpanNilaiClicked() {
+        if (check()){
+            System.out.println("sukses");
+        }
+    }
+    @FXML
+    void onKelasPicked() {
+        ObservableList<String> nisList = FXCollections.observableArrayList();
+        if (kelasComboBox.getValue()!=null){
+            try (Connection data = MainDataSource.getConnection()){
+                PreparedStatement stmt = data.prepareStatement("SELECT nomor_induk_siswa FROM siswa WHERE id_kelas = (SELECT id_kelas FROM kelas WHERE nama_kelas = ?);");
+                stmt.setString(1, kelasComboBox.getValue());
+
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()){
+                    nisList.add(rs.getString("nomor_induk_siswa"));
+                }
+                nisComboBox.setItems(nisList);
+            }catch (SQLException e){
+                System.out.println("Error updateNameLabelSQL: " + e);
+            }
+        }
+    }
+    @FXML
+    void onNisPicked(){
+        if (nisComboBox.getValue() != null){
+            try (Connection data = MainDataSource.getConnection()){
+                PreparedStatement stmt = data.prepareStatement("SELECT nama_siswa FROM siswa WHERE nomor_induk_siswa = ?");
+                stmt.setString(1, nisComboBox.getValue());
+
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()){
+                    namaSiswaLabel.setText(rs.getString("nama_siswa"));
+                }
+            }catch (SQLException e){
+                System.out.println("Error updateNameLabelSQL: " + e);
+            }
+        }
+    }
+    boolean check(){
+        if (uasTextField.getText() == null || utsTextField.getText() == null || nisComboBox.getValue() == null || semesterComboBox.getValue() == null || kelasComboBox.getValue() == null || mapelComboBox.getValue() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Data Belum Terisi");
+            alert.setContentText("Data tidak dapat dimasukan karena belum terisi.");
+            alert.showAndWait();
+            return false;
+        }
+        try {
+            if (Integer.parseInt(utsTextField.getText()) < 0 || Integer.parseInt(utsTextField.getText()) > 100) return false;
+            if (Integer.parseInt(uasTextField.getText()) < 0 || Integer.parseInt(uasTextField.getText()) > 100) return false;
+        }catch (Exception e) {
+            return false;
+        }
+        try(Connection data = MainDataSource.getConnection()){
+            PreparedStatement stmt = data.prepareStatement("SELECT * FROM nilai_ujian WHERE nomor_induk_siswa = ? AND nip_guru = ? AND id_mata_pelajaran = (SELECT id_mata_pelajaran FROM mata_pelajaran WHERE nama_mata_pelajaran = ?) AND semester = ?");
+            stmt.setString(1, nisComboBox.getValue());
+            stmt.setString(2, user.id);
+            stmt.setString(3, mapelComboBox.getValue());
+            stmt.setString(4, semesterComboBox.getValue());
+
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Data exist");
+                alert.setContentText("Data sudah terisi");
+                alert.showAndWait();
+                return false;
+            }
+        }catch (SQLException e){
+            System.out.println("Error: "+e);
+            return false;
+        }
+        return true;
     }
 }

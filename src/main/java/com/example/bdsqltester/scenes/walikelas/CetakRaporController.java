@@ -2,6 +2,7 @@ package com.example.bdsqltester.scenes.walikelas;
 
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.dtos.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,5 +33,9 @@ public class CetakRaporController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void onCetakPdfClicked(ActionEvent actionEvent) {
+
     }
 }
