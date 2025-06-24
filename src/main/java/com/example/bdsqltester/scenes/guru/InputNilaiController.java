@@ -2,9 +2,7 @@ package com.example.bdsqltester.scenes.guru;
 
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.MainDataSource;
-import com.example.bdsqltester.dtos.TableInputGrade;
 import com.example.bdsqltester.dtos.User;
-import com.example.bdsqltester.dtos.TableViewGrade;
 import com.example.bdsqltester.scenes.walikelas.WaliKelasViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,8 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.sql.*;
@@ -136,8 +132,31 @@ public class InputNilaiController {
     }
     @FXML
     void onSimpanNilaiClicked() {
+        int id_nilai_ujian = 0;
         if (check()){
-            System.out.println("sukses");
+            try(Connection data = MainDataSource.getConnection()){
+                PreparedStatement stmt = data.prepareStatement("SELECT id_nilai_ujian FROM nilai_ujian ORDER BY id_nilai_ujian DESC LIMIT 1");
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()){
+                    id_nilai_ujian = rs.getInt("id_nilai_ujian") + 1;
+                }
+                stmt = data.prepareStatement("INSERT INTO nilai_ujian (id_nilai_ujian, nomor_induk_siswa, nip_guru, id_mata_pelajaran, semester, uts, uas) VALUES (?, ?, ?, (SELECT id_mata_pelajaran FROM mata_pelajaran WHERE nama_mata_pelajaran = ?), ?, ?, ?)");
+                stmt.setInt(1, id_nilai_ujian);
+                stmt.setString(2, nisComboBox.getValue());
+                stmt.setString(3,user.id);
+                stmt.setString(4, mapelComboBox.getValue());
+                stmt.setString(5, semesterComboBox.getValue());
+                stmt.setInt(6, Integer.parseInt(utsTextField.getText()));
+                stmt.setInt(7, Integer.parseInt(uasTextField.getText()));
+                stmt.executeUpdate();
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Data berhasil");
+                alert.setHeaderText("Data telah berhasil dimasukan");
+                alert.showAndWait();
+            }catch (SQLException e){
+                System.out.println("Error: "+e);
+            }
         }
     }
     @FXML
@@ -183,9 +202,16 @@ public class InputNilaiController {
             return false;
         }
         try {
-            if (Integer.parseInt(utsTextField.getText()) < 0 || Integer.parseInt(utsTextField.getText()) > 100) return false;
-            if (Integer.parseInt(uasTextField.getText()) < 0 || Integer.parseInt(uasTextField.getText()) > 100) return false;
+            if (Integer.parseInt(utsTextField.getText()) < 0 || Integer.parseInt(utsTextField.getText()) > 100 || Integer.parseInt(uasTextField.getText()) < 0 || Integer.parseInt(uasTextField.getText()) > 100) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Angka tidak Valid");
+                alert.setContentText("Angka tidak masuk dalam batas nilai x>=0 AND x<=100");
+                return false;
+            }
         }catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Angka tidak Valid");
+            alert.setContentText("Bukan angka itu palingan");
             return false;
         }
         try(Connection data = MainDataSource.getConnection()){

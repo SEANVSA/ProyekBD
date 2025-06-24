@@ -59,14 +59,14 @@ public class InputTampilkanSiswa {
     void update(){
         ObservableList<TableTampilanSiswa> tampilan = FXCollections.observableArrayList();
         try (Connection data = MainDataSource.getConnection()){
-            PreparedStatement stmt = data.prepareStatement("SELECT k.nama_kelas, nama_guru  FROM kelas k JOIN wali_kelas wk ON k.nama_kelas = wk.nama_kelas JOIN guru g ON g.nip = wk.nip_guru WHERE k.nama_kelas = ?");
+            PreparedStatement stmt = data.prepareStatement("SELECT k.nama_kelas, nama_guru  FROM kelas k JOIN wali_kelas wk ON k.id_kelas = wk.id_kelas JOIN guru g ON g.nip = wk.nip_guru WHERE k.nama_kelas = ?");
             stmt.setString(1,kelas);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 waliLabel.setText("Wali Kelas: "+rs.getString("nama_guru"));
             }
 
-            stmt = data.prepareStatement("SELECT nama_siswa, nomor_induk_siswa, gender_siswa FROM siswa WHERE id_kelas = (SELECT id_kelas FROM kelas WHERE nama_kelas = ?) ORDER BY nomor_induk_siswa");
+            stmt = data.prepareStatement("SELECT nama_siswa, nomor_induk_siswa, gender_siswa FROM siswa WHERE id_kelas = (SELECT id_kelas FROM kelas WHERE nama_kelas = UPPER(?)) ORDER BY nomor_induk_siswa");
             stmt.setString(1,kelas);
             rs = stmt.executeQuery();
             while (rs.next()){

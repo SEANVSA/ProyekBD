@@ -93,6 +93,11 @@ public class InputDataSiswaController {
                 stmt.setString(12, golonganDarahChoice.getValue());
 
                 stmt.executeUpdate();
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Data berhasil");
+                alert.setHeaderText("Data telah berhasil dimasukan");
+                alert.showAndWait();
             }catch (SQLException e){
                 System.out.println("Error: "+e);
             }
