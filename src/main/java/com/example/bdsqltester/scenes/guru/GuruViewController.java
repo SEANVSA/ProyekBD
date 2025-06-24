@@ -99,5 +99,20 @@ public class GuruViewController {
     }
     @FXML
     void onAbsenSiswaClicked() {
+        try {
+            HelloApplication app = HelloApplication.getApplicationInstance();
+            app.getPrimaryStage().setTitle("Absensi Siswa");
+
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("guru-absensi.fxml"));
+            Parent root = loader.load();
+
+            GuruAbsensiController guruAbsensiController = loader.getController();
+            guruAbsensiController.setUser(user);
+
+            Scene scene = new Scene(root);
+            app.getPrimaryStage().setScene(scene);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
     }
 }
