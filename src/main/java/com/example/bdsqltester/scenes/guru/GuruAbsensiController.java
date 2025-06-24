@@ -11,20 +11,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
 
 import java.io.IOException;
 import java.sql.*;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.format.TextStyle;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class GuruAbsensiController {
-    // A custom data format to ensure we are only dragging/dropping our own data.
-    private static final DataFormat STUDENT_FORMAT = new DataFormat("application/x-student");
 
     @FXML
     private ComboBox<String> kelasComboBox;
@@ -43,26 +40,29 @@ public class GuruAbsensiController {
     @FXML
     private ListView<String> alphaListView;
 
+    @FXML
+    private Button hadirButton;
+    @FXML
+    private Button izinButton;
+    @FXML
+    private Button alphaButton;
+    @FXML
+    private Button belumAbsenButton;
+
     private User user = new User();
+    private List<ListView<String>> allListViews;
+
 
     public void setUser(User user) {
         this.user = user;
-        initialize();
+        initializeComboBoxes();
     }
 
     @FXML
     void initialize(){
-        // Set default date to today
         datePicker.setValue(LocalDate.now());
-
-        // Setup Drag and Drop for all ListViews
-        setupDragAndDrop(belumAbsenListView);
-        setupDragAndDrop(hadirListView);
-        setupDragAndDrop(izinListView);
-        setupDragAndDrop(alphaListView);
-
-        // Initialize the ComboBoxes with data from the DB
-        initializeComboBoxes();
+        allListViews = Arrays.asList(belumAbsenListView, hadirListView, izinListView, alphaListView);
+        setupMutualExclusionSelection();
     }
 
     private void initializeComboBoxes() {
@@ -71,27 +71,22 @@ public class GuruAbsensiController {
         ObservableList<Time> jamList = FXCollections.observableArrayList();
 
         try (Connection data = MainDataSource.getConnection()) {
-            // Get classes taught by this teacher
             PreparedStatement stmt = data.prepareStatement("SELECT DISTINCT k.nama_kelas FROM kelas k JOIN jadwal_kelas jk ON k.id_kelas = jk.id_kelas WHERE jk.nip_guru = ? ORDER BY k.nama_kelas");
             stmt.setString(1, user.id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                System.out.println(rs.getString("nama_kelas"));
                 kelasList.add(rs.getString("nama_kelas"));
             }
             kelasComboBox.setItems(kelasList);
 
-            // Get subjects taught by this teacher
             stmt = data.prepareStatement("SELECT DISTINCT mp.nama_mata_pelajaran FROM mata_pelajaran mp JOIN jadwal_kelas jk ON mp.id_mata_pelajaran = jk.id_mata_pelajaran WHERE jk.nip_guru = ? ORDER BY mp.nama_mata_pelajaran");
             stmt.setString(1, user.id);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                System.out.println(rs.getString("nama_mata_pelajaran"));
                 mapelList.add(rs.getString("nama_mata_pelajaran"));
             }
             mapelComboBox.setItems(mapelList);
 
-            // Get schedule times
             stmt = data.prepareStatement("SELECT DISTINCT jam_jadwal_kelas FROM jadwal_kelas ORDER BY jam_jadwal_kelas");
             rs = stmt.executeQuery();
             while(rs.next()){
@@ -101,72 +96,69 @@ public class GuruAbsensiController {
 
         } catch (SQLException e) {
             System.err.println("Error initializing ComboBoxes: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Gagal memuat data awal: " + e.getMessage());
         }
     }
 
-    private void setupDragAndDrop(ListView<String> listView) {
-        listView.setCellFactory(param -> {
-            ListCell<String> cell = new ListCell<>();
-
-            cell.setOnDragDetected(event -> {
-                if (cell.getItem() == null || cell.isEmpty()) {
-                    return;
+    private void setupMutualExclusionSelection() {
+        for (ListView<String> currentList : allListViews) {
+            currentList.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                if (newSelection != null) {
+                    for (ListView<String> otherList : allListViews) {
+                        if (otherList != currentList) {
+                            otherList.getSelectionModel().clearSelection();
+                        }
+                    }
                 }
-                Dragboard dragboard = cell.startDragAndDrop(TransferMode.MOVE);
-                ClipboardContent content = new ClipboardContent();
-                content.put(STUDENT_FORMAT, cell.getItem());
-                dragboard.setContent(content);
-                // Keep track of the source list
-                dragboard.setDragView(cell.snapshot(null, null));
-                event.consume();
             });
-
-            cell.setOnDragOver(event -> {
-                if (event.getGestureSource() != listView && event.getDragboard().hasContent(STUDENT_FORMAT)) {
-                    event.acceptTransferModes(TransferMode.MOVE);
-                }
-                event.consume();
-            });
-
-            cell.setOnDragDropped(event -> {
-                Dragboard db = event.getDragboard();
-                boolean success = false;
-                if (db.hasContent(STUDENT_FORMAT)) {
-                    String draggedItem = (String) db.getContent(STUDENT_FORMAT);
-                    listView.getItems().add(draggedItem);
-                    success = true;
-                }
-                event.setDropCompleted(success);
-                event.consume();
-            });
-
-            // This is key: after the drop is completed, the source list is notified
-            cell.setOnDragDone(event -> {
-                if (event.getTransferMode() == TransferMode.MOVE) {
-                    ListView<String> sourceList = (ListView<String>) event.getGestureSource();
-                    String draggedItem = (String) event.getDragboard().getContent(STUDENT_FORMAT);
-                    sourceList.getItems().remove(draggedItem);
-                }
-                event.consume();
-            });
-
-
-            // This is essential to actually display the text in the cell!
-            cell.textProperty().bind(cell.itemProperty());
-
-            return cell;
-        });
+        }
     }
 
-    // This button loads the students for the selected class into the "Belum Absen" list
+    private void moveSelectedItemTo(ListView<String> targetList) {
+        String selectedStudent = null;
+        ListView<String> sourceList = null;
+
+        for (ListView<String> currentList : allListViews) {
+            String selection = currentList.getSelectionModel().getSelectedItem();
+            if (selection != null) {
+                selectedStudent = selection;
+                sourceList = currentList;
+                break;
+            }
+        }
+
+        if (selectedStudent != null && sourceList != targetList) {
+            targetList.getItems().add(selectedStudent);
+            sourceList.getItems().remove(selectedStudent);
+        }
+    }
+
+    @FXML
+    void onHadirClicked() {
+        moveSelectedItemTo(hadirListView);
+    }
+
+    @FXML
+    void onIzinClicked() {
+        moveSelectedItemTo(izinListView);
+    }
+
+    @FXML
+    void onAlphaClicked() {
+        moveSelectedItemTo(alphaListView);
+    }
+
+    @FXML
+    void onBelumAbsenClicked() {
+        moveSelectedItemTo(belumAbsenListView);
+    }
+
     @FXML
     void onTerapkanClicked() {
         if (kelasComboBox.getValue() == null) {
             showAlert(Alert.AlertType.WARNING, "Peringatan", "Pilih kelas terlebih dahulu.");
             return;
         }
-
-        // Clear all lists first
         onResetClicked();
 
         ObservableList<String> students = FXCollections.observableArrayList();
@@ -186,7 +178,6 @@ public class GuruAbsensiController {
         }
     }
 
-    // This button saves the current state of the lists to the database
     @FXML
     void onSimpanAbsensiClicker() {
         if (kelasComboBox.getValue() == null || mapelComboBox.getValue() == null || datePicker.getValue() == null || jamMulaiComboBox.getValue() == null) {
@@ -194,62 +185,84 @@ public class GuruAbsensiController {
             return;
         }
 
-        List<String> hadirList = new ArrayList<>(hadirListView.getItems());
-        List<String> izinList = new ArrayList<>(izinListView.getItems());
-        List<String> alphaList = new ArrayList<>(alphaListView.getItems());
-
         try (Connection data = MainDataSource.getConnection()) {
-            // Use a transaction to ensure all or nothing is saved
+            DayOfWeek day = datePicker.getValue().getDayOfWeek();
+            String namaHari = day.getDisplayName(TextStyle.FULL, new Locale("id", "ID"));
+
+            PreparedStatement jadwalStmt = data.prepareStatement(
+                    "SELECT id_jadwal_kelas FROM jadwal_kelas jk " +
+                            "JOIN kelas k ON jk.id_kelas = k.id_kelas " +
+                            "JOIN mata_pelajaran mp ON jk.id_mata_pelajaran = mp.id_mata_pelajaran " +
+                            "WHERE k.nama_kelas = ? AND mp.nama_mata_pelajaran = ? AND jk.hari_jadwal_kelas = ? AND jk.jam_jadwal_kelas = ? AND jk.nip_guru = ?");
+            jadwalStmt.setString(1, kelasComboBox.getValue());
+            jadwalStmt.setString(2, mapelComboBox.getValue());
+            jadwalStmt.setString(3, namaHari);
+            jadwalStmt.setTime(4, jamMulaiComboBox.getValue());
+            jadwalStmt.setString(5, user.id);
+
+            ResultSet rsJadwal = jadwalStmt.executeQuery();
+
+            if (!rsJadwal.next()) {
+                showAlert(Alert.AlertType.ERROR, "Jadwal Tidak Ditemukan", "Tidak ada jadwal yang cocok untuk kriteria yang dipilih pada hari " + namaHari + ".");
+                return;
+            }
+            int idJadwalKelas = rsJadwal.getInt("id_jadwal_kelas");
+
             data.setAutoCommit(false);
 
-            // Clear previous attendance for this specific class session to avoid duplicates
-            PreparedStatement deleteStmt = data.prepareStatement("DELETE FROM absensi WHERE id_mata_pelajaran = (SELECT id_mata_pelajaran FROM mata_pelajaran WHERE nama_mata_pelajaran = ?) AND tanggal = ? AND jam_mulai = ? AND nomor_induk_siswa IN (SELECT nomor_induk_siswa FROM siswa WHERE id_kelas = (SELECT id_kelas FROM kelas WHERE nama_kelas = ?))");
-            deleteStmt.setString(1, mapelComboBox.getValue());
+            PreparedStatement deleteStmt = data.prepareStatement("DELETE FROM absensi WHERE id_jadwal_kelas = ? AND tanggal_absensi = ?");
+            deleteStmt.setInt(1, idJadwalKelas);
             deleteStmt.setDate(2, Date.valueOf(datePicker.getValue()));
-            deleteStmt.setTime(3, jamMulaiComboBox.getValue());
-            deleteStmt.setString(4, kelasComboBox.getValue());
             deleteStmt.executeUpdate();
 
+            // Save the marked students
+            saveListToDb(data, hadirListView.getItems(), "Hadir", idJadwalKelas);
+            saveListToDb(data, izinListView.getItems(), "Izin", idJadwalKelas);
+            saveListToDb(data, alphaListView.getItems(), "Alpha", idJadwalKelas);
 
-            // Insert new attendance records
-            saveListToDb(data, hadirList, "Hadir");
-            saveListToDb(data, izinList, "Izin");
-            saveListToDb(data, alphaList, "Alpha");
+            // **NEW**: Save students left in "Belum Absen" list with NULL status
+            saveListToDb(data, belumAbsenListView.getItems(), null, idJadwalKelas);
 
-            data.commit(); // Finalize the transaction
+            data.commit();
             showAlert(Alert.AlertType.INFORMATION, "Sukses", "Data absensi berhasil disimpan.");
 
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Database Error", "Gagal menyimpan absensi: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    private void saveListToDb(Connection connection, List<String> studentList, String status) throws SQLException {
-        String sql = "INSERT INTO absensi (nomor_induk_siswa, id_mata_pelajaran, nip_guru, tanggal, jam_mulai, status) VALUES (?, (SELECT id_mata_pelajaran FROM mata_pelajaran WHERE nama_mata_pelajaran = ?), ?, ?, ?, ?)";
+    private void saveListToDb(Connection connection, List<String> studentList, String status, int idJadwalKelas) throws SQLException {
+        String sql = "INSERT INTO absensi (nomor_induk_siswa, id_jadwal_kelas, id_rapor, tanggal_absensi, status_absensi) VALUES (?, ?, NULL, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             for (String studentInfo : studentList) {
-                String nis = getNis(studentInfo);
-                stmt.setString(1, nis);
-                stmt.setString(2, mapelComboBox.getValue());
-                stmt.setString(3, user.id);
-                stmt.setDate(4, Date.valueOf(datePicker.getValue()));
-                stmt.setTime(5, jamMulaiComboBox.getValue());
-                stmt.setString(6, status);
-                stmt.addBatch(); // Add statement to the batch
+                stmt.setString(1, getNis(studentInfo));
+                stmt.setInt(2, idJadwalKelas);
+                // id_rapor is parameter 3
+                stmt.setDate(3, Date.valueOf(datePicker.getValue()));
+
+                // **UPDATED**: Handle NULL for status_absensi
+                if (status != null) {
+                    stmt.setString(4, status);
+                } else {
+                    stmt.setNull(4, java.sql.Types.VARCHAR);
+                }
+
+                stmt.addBatch();
             }
-            stmt.executeBatch(); // Execute all statements in the batch
+            stmt.executeBatch();
         }
     }
 
     @FXML
     void onResetClicked() {
-        belumAbsenListView.getItems().clear();
-        hadirListView.getItems().clear();
-        izinListView.getItems().clear();
-        alphaListView.getItems().clear();
+        for (ListView<String> list : allListViews) {
+            if(list.getItems() != null) {
+                list.getItems().clear();
+            }
+        }
     }
 
-    // Utility function to get NIS from the list string, e.g., "(SD001) - Nama" -> "SD001"
     private String getNis(String s) {
         if (s == null || !s.contains("(") || !s.contains(")")) {
             return "";
