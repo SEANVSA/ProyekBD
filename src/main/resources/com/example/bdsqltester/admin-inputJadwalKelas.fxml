@@ -18,114 +18,103 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 
-    <!-- Header with Close Button -->
+    <!-- Header -->
     <HBox alignment="CENTER" spacing="20.0">
-        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Input Jadwal Kelas" />
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Input Jadwal Kelas SD" />
         <Region HBox.hgrow="ALWAYS" />
     </HBox>
 
-    <!-- Filter and Input Section -->
+    <!-- Filter Section -->
     <VBox alignment="CENTER" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);">
         <HBox alignment="CENTER_LEFT" spacing="15.0">
             <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Kelas:" />
             <ChoiceBox fx:id="kelasChoice" prefWidth="200.0" />
             <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Hari:" />
-            <ChoiceBox fx:id="hariChoice" prefWidth="150.0">
-            </ChoiceBox>
-
+            <ChoiceBox fx:id="hariChoice" prefWidth="150.0" />
             <Button onAction="#onFilterJadwalClicked" style="-fx-font-size: 14px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 15 5 15;" text="Filter Jadwal" />
         </HBox>
 
         <Separator style="-fx-padding: 10 0 10 0;" />
 
-        <!-- Schedule Input Form -->
+        <!-- Jadwal Input -->
         <GridPane hgap="15.0" vgap="10.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="NEVER" minWidth="100.0" prefWidth="120.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" prefWidth="200.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" prefWidth="200.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" prefWidth="200.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" prefWidth="200.0" />
+                <ColumnConstraints minWidth="140.0" />
+                <ColumnConstraints minWidth="180.0" />
+                <ColumnConstraints minWidth="180.0" />
             </columnConstraints>
-
             <children>
-                <!-- Header Row -->
-                <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Waktu" />
-                <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Jam Mulai" GridPane.columnIndex="1" />
-                <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Jam Selesai" GridPane.columnIndex="2" />
-                <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Mata Pelajaran" GridPane.columnIndex="3" />
-                <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Nama Guru" GridPane.columnIndex="4" />
+                <!-- Header Baris -->
+                <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Jam" />
+                <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Mata Pelajaran" GridPane.columnIndex="1" />
+                <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Nama Guru" GridPane.columnIndex="2" />
 
-                <!-- Time Slots -->
-                <Label text="07.00 - 07.35" GridPane.rowIndex="1" />
-                <TextField fx:id="jamMulai1" promptText="HH:mm" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField fx:id="jamSelesai1" promptText="HH:mm" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                <TextField fx:id="mapel1" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                <TextField fx:id="guru1" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                <!-- Sesi Pelajaran -->
+                <Label text="07.00 - 07.45" GridPane.rowIndex="1" />
+                <TextField fx:id="mapel1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="guru1" GridPane.columnIndex="2" GridPane.rowIndex="1" />
 
-                <Label text="07.35 - 08.10" GridPane.rowIndex="2" />
-                <TextField fx:id="jamMulai2" promptText="HH:mm" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="jamSelesai2" promptText="HH:mm" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                <TextField fx:id="mapel2" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                <TextField fx:id="guru2" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                <Label text="07.45 - 08.30" GridPane.rowIndex="2" />
+                <TextField fx:id="mapel2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="guru2" GridPane.columnIndex="2" GridPane.rowIndex="2" />
 
-                <Label text="08.10 - 08.45" GridPane.rowIndex="3" />
-                <TextField fx:id="jamMulai3" promptText="HH:mm" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <TextField fx:id="jamSelesai3" promptText="HH:mm" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                <TextField fx:id="mapel3" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                <TextField fx:id="guru3" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                <Label text="08.30 - 09.15" GridPane.rowIndex="3" />
+                <TextField fx:id="mapel3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="guru3" GridPane.columnIndex="2" GridPane.rowIndex="3" />
 
-                <Label text="08.45 - 09.15" GridPane.rowIndex="4" />
-                <TextField fx:id="jamMulai4" promptText="HH:mm" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <TextField fx:id="jamSelesai4" promptText="HH:mm" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                <TextField fx:id="mapel4" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                <TextField fx:id="guru4" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                <!-- Istirahat 1 -->
+                <Label text="09.15 - 09.30 (Istirahat)" style="-fx-font-style: italic; -fx-text-fill: #e67e22;" GridPane.rowIndex="4" GridPane.columnSpan="3" />
 
-                <Label text="09.15 - 09.50" GridPane.rowIndex="5" />
-                <TextField fx:id="jamMulai5" promptText="HH:mm" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                <TextField fx:id="jamSelesai5" promptText="HH:mm" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                <TextField fx:id="mapel5" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                <TextField fx:id="guru5" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                <Label text="09.30 - 10.15" GridPane.rowIndex="5" />
+                <TextField fx:id="mapel4" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <TextField fx:id="guru4" GridPane.columnIndex="2" GridPane.rowIndex="5" />
 
-                <Label text="09.50 - 10.25" GridPane.rowIndex="6" />
-                <TextField fx:id="jamMulai6" promptText="HH:mm" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                <TextField fx:id="jamSelesai6" promptText="HH:mm" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                <TextField fx:id="mapel6" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-                <TextField fx:id="guru6" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+                <Label text="10.15 - 11.00" GridPane.rowIndex="6" />
+                <TextField fx:id="mapel5" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                <TextField fx:id="guru5" GridPane.columnIndex="2" GridPane.rowIndex="6" />
 
-                <Label text="10.25 - 11.00" GridPane.rowIndex="7" />
-                <TextField fx:id="jamMulai7" promptText="HH:mm" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                <TextField fx:id="jamSelesai7" promptText="HH:mm" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-                <TextField fx:id="mapel7" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-                <TextField fx:id="guru7" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                <Label text="11.00 - 11.45" GridPane.rowIndex="7" />
+                <TextField fx:id="mapel6" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                <TextField fx:id="guru6" GridPane.columnIndex="2" GridPane.rowIndex="7" />
 
-                <Label text="11.00 - 11.35" GridPane.rowIndex="8" />
-                <TextField fx:id="jamMulai8" promptText="HH:mm" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                <TextField fx:id="jamSelesai8" promptText="HH:mm" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-                <TextField fx:id="mapel8" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-                <TextField fx:id="guru8" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+                <!-- Istirahat 2 -->
+                <Label text="11.45 - 12.00 (Istirahat)" style="-fx-font-style: italic; -fx-text-fill: #e67e22;" GridPane.rowIndex="8" GridPane.columnSpan="3" />
+
+                <Label text="12.00 - 12.45" GridPane.rowIndex="9" />
+                <TextField fx:id="mapel7" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                <TextField fx:id="guru7" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+
+                <Label text="12.45 - 13.30" GridPane.rowIndex="10" />
+                <TextField fx:id="mapel8" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                <TextField fx:id="guru8" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+
+                <!-- Pulang -->
+                <Label text="13.30 (Pulang)" style="-fx-font-style: italic; -fx-text-fill: #27ae60;" GridPane.rowIndex="11" GridPane.columnSpan="3" />
             </children>
-         <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-         </rowConstraints>
+            <rowConstraints>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+            </rowConstraints>
         </GridPane>
     </VBox>
 
-    <!-- Action Buttons -->
+    <!-- Tombol Aksi -->
     <HBox alignment="CENTER" spacing="20.0">
         <Button onAction="#onSimpanClicked" style="-fx-font-size: 16px; -fx-pref-width: 180px; -fx-pref-height: 40px; -fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 5;" text="Simpan Jadwal" />
         <Button onAction="#onResetClicked" style="-fx-font-size: 16px; -fx-pref-width: 180px; -fx-pref-height: 40px; -fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 5;" text="Reset Form" />
     </HBox>
 
-    <!-- Navigation -->
+    <!-- Navigasi -->
     <HBox alignment="CENTER" spacing="20.0">
         <Button onAction="#onKembaliClicked" style="-fx-font-size: 14px; -fx-pref-width: 200px; -fx-pref-height: 35px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="Kembali ke Dashboard" />
     </HBox>
