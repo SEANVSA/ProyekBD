@@ -79,11 +79,11 @@ public class LoginController {
 
     @FXML
     void initialize() {
-        idField.setText("SD001");
-        passwordField.setText("sdpass1");
+        idField.setText("ADM01");
+        passwordField.setText("admin123");
 
         selectRole.getItems().addAll("Admin", "Siswa", "Guru");
-        selectRole.setValue("Siswa");
+        selectRole.setValue("Admin");
     }
 
     @FXML
