@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="25.0" style="-fx-background-color: #f8f9fa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets top="40" right="40" bottom="40" left="40"/>
+    </padding>
+
+    <!-- Judul Form -->
+    <Label text="Input Absensi Siswa"
+           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+    <!-- Form Input -->
+    <GridPane hgap="15" vgap="18"
+              style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 32; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);">
+        <columnConstraints>
+            <ColumnConstraints minWidth="140" halignment="RIGHT"/>
+            <ColumnConstraints minWidth="10"/>
+            <ColumnConstraints minWidth="260" hgrow="ALWAYS"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="40"/>
+            <RowConstraints minHeight="40"/>
+            <RowConstraints minHeight="40"/>
+            <RowConstraints minHeight="40"/>
+            <RowConstraints minHeight="40"/>
+        </rowConstraints>
+
+        <Label text="Kelas:" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="inputKelas" promptText="Pilih Kelas" style="-fx-pref-width: 200px;" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+
+        <Label text="Nama Siswa:" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="inputSiswa" promptText="Pilih Siswa" style="-fx-pref-width: 260px;" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+
+        <Label text="Tanggal:" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="inputTanggal" style="-fx-pref-width: 180px;" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+
+        <Label text="Status:" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="inputStatus" promptText="Pilih Status" style="-fx-pref-width: 150px;" GridPane.rowIndex="3" GridPane.columnIndex="2">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+<!--                    <String>Hadir</String>-->
+<!--                    <String>Izin</String>-->
+<!--                    <String>Sakit</String>-->
+<!--                    <String>Alpa</String>-->
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <HBox spacing="15" alignment="CENTER_RIGHT" GridPane.rowIndex="4" GridPane.columnIndex="2">
+            <Button text="Simpan" fx:id="btnSimpan"
+                    style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-pref-width: 100px;"/>
+            <Button text="Reset" fx:id="btnReset"
+                    style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-pref-width: 100px;"/>
+        </HBox>
+    </GridPane>
+</VBox>
