@@ -223,7 +223,6 @@ public class InputJadwalKelasController {
 
     @FXML
     void onSimpanClicked() {
-        int id_jadwal = 0;
         ArrayList<ChoiceBox<String>> mapel = new ArrayList<>();
         mapel.add(mapel1);
         mapel.add(mapel2);
@@ -259,6 +258,7 @@ public class InputJadwalKelasController {
 
                 stmt = data.prepareStatement("SELECT id_jadwal_kelas FROM jadwal_kelas ORDER BY id_jadwal_kelas");
                 rs = stmt.executeQuery();
+                int id_jadwal = 0;
                 boolean fill = true;
                 while (rs.next()) {
                     id_jadwal++;
@@ -282,10 +282,6 @@ public class InputJadwalKelasController {
         } catch (SQLException e) {
             System.out.println("Simpan Failed: "+e);
         }
-    }
-
-    boolean cekJadwal(){
-        return true;
     }
 
     @FXML

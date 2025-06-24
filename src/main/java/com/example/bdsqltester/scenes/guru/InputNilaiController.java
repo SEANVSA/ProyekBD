@@ -141,11 +141,19 @@ public class InputNilaiController {
         int id_nilai_ujian = 0;
         if (check()){
             try(Connection data = MainDataSource.getConnection()){
-                PreparedStatement stmt = data.prepareStatement("SELECT id_nilai_ujian FROM nilai_ujian ORDER BY id_nilai_ujian DESC LIMIT 1");
+                PreparedStatement stmt = data.prepareStatement("SELECT id_nilai_ujian FROM nilai_ujian ORDER BY id_nilai_ujian");
                 ResultSet rs = stmt.executeQuery();
-                if (rs.next()){
-                    id_nilai_ujian = rs.getInt("id_nilai_ujian") + 1;
+
+                boolean fill = true;
+                while (rs.next()) {
+                    id_nilai_ujian++;
+                    if (id_nilai_ujian != rs.getInt("id_nilai_ujian")) {
+                        fill = false;
+                        break;
+                    }
                 }
+                if (fill) id_nilai_ujian++;
+
                 stmt = data.prepareStatement("INSERT INTO nilai_ujian (id_nilai_ujian, nomor_induk_siswa, nip_guru, id_mata_pelajaran, semester, uts, uas) VALUES (?, ?, ?, (SELECT id_mata_pelajaran FROM mata_pelajaran WHERE nama_mata_pelajaran = ?), ?, ?, ?)");
                 stmt.setInt(1, id_nilai_ujian);
                 stmt.setString(2, nisComboBox.getValue());
