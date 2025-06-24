@@ -61,7 +61,7 @@ public class CetakRaporController {
     @FXML
     void initialize(){
         mapelColumn.setCellValueFactory(new PropertyValueFactory<>("mapelName"));
-        uasColumn.setCellValueFactory(new PropertyValueFactory<>("utsValue"));
+        utsColumn.setCellValueFactory(new PropertyValueFactory<>("utsValue"));
         uasColumn.setCellValueFactory(new PropertyValueFactory<>("uasValue"));
         rataRataColumn.setCellValueFactory(new PropertyValueFactory<>("rataRataValue"));
     }
@@ -69,13 +69,14 @@ public class CetakRaporController {
     void initializeLabel(){
         try (Connection data = MainDataSource.getConnection()){
             PreparedStatement stmt = data.prepareStatement("SELECT nama_kelas FROM kelas WHERE id_kelas = (SELECT id_kelas FROM wali_kelas WHERE nip_guru = ?)");
+            stmt.setString(1,user.id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 kelasLabel.setText("Kelas: "+rs.getString("nama_kelas"));
             }
             waliLabel.setText("Wali Kelas: "+user.username);
         }catch (SQLException e){
-            System.out.println("Error updateNameLabelSQL");
+            System.out.println("Error initializeLabel "+e);
         }
     }
 
@@ -99,7 +100,7 @@ public class CetakRaporController {
             tahunAjaranComboBox.setItems(tahunAjaranList);
             siswaComboBox.setItems(nisList);
         }catch (SQLException e){
-            System.out.println("Error updateNameLabelSQL");
+            System.out.println("Error initializeComboBox "+e);
         }
     }
 
@@ -122,7 +123,42 @@ public class CetakRaporController {
         }
     }
     @FXML
-    void onCetakPdfClicked(ActionEvent actionEvent) {
+    void onCetakPdfClicked() {
+        System.out.println("Gendeng");
+    }
+    @FXML
+    void onGenerateClicked() {
+        ObservableList<TableViewGrade> grades = FXCollections.observableArrayList();
+        if (siswaComboBox.getValue()!=null && tahunAjaranComboBox.getValue()!= null && semesterComboBox!=null){
+            try (Connection data = MainDataSource.getConnection()){
+                PreparedStatement stmt = data.prepareStatement("SELECT nama_mata_pelajaran, uts, uas  FROM rapor r JOIN nilai_ujian n ON n.id_rapor = r.id_rapor JOIN mata_pelajaran mp ON mp.id_mata_pelajaran = n.id_mata_pelajaran WHERE r.nomor_induk_siswa = ? AND tahun_ajaran = ? AND r.semester = ? ORDER BY mp.id_mata_pelajaran");
+                stmt.setString(1, siswaComboBox.getValue());
+                stmt.setString(2, tahunAjaranComboBox.getValue());
+                stmt.setString(3, semesterComboBox.getValue());
+                ResultSet rs = stmt.executeQuery();
+                double rataRataTotal = 0;
+                int count = 0;
+                while (rs.next()) {
+                    String mapel = rs.getString("nama_mata_pelajaran");
+                    double uts = rs.getInt("uts");
+                    double uas = rs.getInt("uas");
+                    double rataRata = (uts+uas)/2;
+                    rataRataTotal += rataRata;
+                    count += 1;
+                    grades.add(new TableViewGrade(mapel,uts,uas, rataRata));
+                }
+                raporTable.setItems(grades);
+                nilaiAkhirLabel.setText(String.valueOf(rataRataTotal/count));
 
+                stmt = data.prepareStatement("SELECT * FROM siswa WHERE nomor_induk_siswa = ?");
+                stmt.setString(1, siswaComboBox.getValue());
+                rs = stmt.executeQuery();
+                if (rs.next()){
+                    namaSiswaLabel.setText(rs.getString("nama_siswa"));
+                }
+            }catch (SQLException e){
+                System.out.println("Error GenerateClicked "+e);
+            }
+        }
     }
 }

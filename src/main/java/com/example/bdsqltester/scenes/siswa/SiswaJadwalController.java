@@ -65,28 +65,40 @@ public class SiswaJadwalController {
                 }
 
                 for (Timestamp timestamp : jam) {
-                    stmt = data.prepareStatement("SELECT jk.hari_jadwal_kelas, nama_mata_pelajaran FROM jadwal_kelas jk JOIN mata_pelajaran mapel ON jk.id_mata_pelajaran =  mapel.id_mata_pelajaran WHERE jk.id_kelas = (SELECT id_kelas FROM siswa WHERE nomor_induk_siswa = ?) AND jam_jadwal_kelas = ? ORDER BY hari_jadwal_kelas;");
-                    stmt.setString(1, user.id);
-                    stmt.setTimestamp(2, timestamp);
-
                     String senin = null;
                     String selasa = null;
                     String rabu = null;
                     String kamis = null;
                     String jumat = null;
-
-                    rs = stmt.executeQuery();
-                    while (rs.next()) {
-                        String hari = rs.getString("hari_jadwal_kelas").toLowerCase();
-                        switch (hari) {
-                            case "senin" -> senin = rs.getString("nama_mata_pelajaran");
-                            case "selasa" -> selasa = rs.getString("nama_mata_pelajaran");
-                            case "rabu" -> rabu = rs.getString("nama_mata_pelajaran");
-                            case "kamis" -> kamis = rs.getString("nama_mata_pelajaran");
-                            case "jumat" -> jumat = rs.getString("nama_mata_pelajaran");
-                        }
+                    Timestamp end;
+                    if ((timestamp.toString().substring(11).equals("09:15:00.0")) || (timestamp.toString().substring(11).equals("11:45:00.0"))){
+                        senin = "Istirahat";
+                        selasa = "Istirahat";
+                        rabu = "Istirahat";
+                        kamis = "Istirahat";
+                        jumat = "Istirahat";
+                        end = new Timestamp(timestamp.getTime()+1000*60*15);
                     }
-                    jadwal.add(new TableViewJadwal(timestamp, senin, selasa, rabu, kamis, jumat));
+                    else {
+                        stmt = data.prepareStatement("SELECT jk.hari_jadwal_kelas, nama_mata_pelajaran FROM jadwal_kelas jk JOIN mata_pelajaran mapel ON jk.id_mata_pelajaran =  mapel.id_mata_pelajaran WHERE jk.id_kelas = (SELECT id_kelas FROM siswa WHERE nomor_induk_siswa = ?) AND jam_jadwal_kelas = ? ORDER BY hari_jadwal_kelas;");
+                        stmt.setString(1, user.id);
+                        stmt.setTimestamp(2, timestamp);
+
+
+                        rs = stmt.executeQuery();
+                        while (rs.next()) {
+                            String hari = rs.getString("hari_jadwal_kelas").toLowerCase();
+                            switch (hari) {
+                                case "senin" -> senin = rs.getString("nama_mata_pelajaran");
+                                case "selasa" -> selasa = rs.getString("nama_mata_pelajaran");
+                                case "rabu" -> rabu = rs.getString("nama_mata_pelajaran");
+                                case "kamis" -> kamis = rs.getString("nama_mata_pelajaran");
+                                case "jumat" -> jumat = rs.getString("nama_mata_pelajaran");
+                            }
+                        }
+                        end = new Timestamp(timestamp.getTime()+1000*60*45);
+                    }
+                    jadwal.add(new TableViewJadwal(timestamp,end, senin, selasa, rabu, kamis, jumat));
                 }
                 scheduleTable.setItems(jadwal);
             }

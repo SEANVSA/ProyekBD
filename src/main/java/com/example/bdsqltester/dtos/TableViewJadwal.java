@@ -12,8 +12,8 @@ public class TableViewJadwal {
     private final SimpleStringProperty kamis;
     private final SimpleStringProperty jumat;
 
-    public TableViewJadwal(Timestamp waktu, String senin, String selasa, String rabu, String kamis, String jumat) {
-        this.waktu = new SimpleStringProperty(waktu.toString().substring(11,19));
+    public TableViewJadwal(Timestamp waktuMulai, Timestamp waktuSelesai, String senin, String selasa, String rabu, String kamis, String jumat) {
+        this.waktu = new SimpleStringProperty(waktuMulai.toString().substring(11,16)+" - "+waktuSelesai.toString().substring(11,16));
         this.senin = new SimpleStringProperty(senin);
         this.selasa = new SimpleStringProperty(selasa);
         this.rabu = new SimpleStringProperty(rabu);
