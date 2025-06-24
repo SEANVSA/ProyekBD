@@ -38,6 +38,10 @@ public class GuruAbsensiController {
     }
 
     @FXML
+    void initialize(){
+
+    }
+    @FXML
     void onSimpanAbsensiClicker() {
     }
 
