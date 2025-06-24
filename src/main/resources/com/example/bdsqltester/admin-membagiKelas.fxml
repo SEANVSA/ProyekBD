@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
@@ -27,11 +26,9 @@
 
         <!-- Class Selection Section -->
         <HBox alignment="CENTER_LEFT" spacing="15.0">
-            <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Tahun Ajaran:" />
-            <TextField fx:id="tahunAjaranField" promptText="2023/2024" style="-fx-pref-width: 100px;" />
 
-            <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Tingkat Kelas:" />
-            <ChoiceBox fx:id="tingkatKelasChoice" style="-fx-pref-width: 100px;" />
+            <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Pilih Kelas:" />
+            <ChoiceBox fx:id="kelasChoiceBox" prefHeight="26.0" prefWidth="196.0" style="-fx-pref-width: 100px;" />
 
             <Button onAction="#onTampilkanDataClicked" style="-fx-font-size: 14px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 15 5 15;" text="Tampilkan Data" />
         </HBox>
@@ -48,8 +45,6 @@
 
             <!-- Class Assignment Controls -->
             <VBox alignment="CENTER" spacing="15.0">
-                <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Pilih Kelas Tujuan:" />
-                <ChoiceBox fx:id="kelasTujuanChoice" style="-fx-pref-width: 150px;" />
 
                 <Button onAction="#onTambahkanClicked" style="-fx-font-size: 14px; -fx-pref-width: 150px; -fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 5;" text="→ Tambahkan →" />
                 <Button onAction="#onKembalikanClicked" style="-fx-font-size: 14px; -fx-pref-width: 150px; -fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 5;" text="← Kembalikan ←" />
