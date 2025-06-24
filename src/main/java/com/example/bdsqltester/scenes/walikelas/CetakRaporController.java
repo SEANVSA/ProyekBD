@@ -6,7 +6,6 @@ import com.example.bdsqltester.dtos.TableViewGrade;
 import com.example.bdsqltester.dtos.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -1,19 +1,21 @@
 package com.example.bdsqltester.scenes.walikelas;
 
 import com.example.bdsqltester.HelloApplication;
-import com.example.bdsqltester.datasources.*;
+import com.example.bdsqltester.datasources.MainDataSource;
 import com.example.bdsqltester.dtos.User;
 import com.example.bdsqltester.scenes.guru.InputNilaiController;
 import com.example.bdsqltester.scenes.guru.JadwalKelasController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class WaliKelasViewController {
     @FXML

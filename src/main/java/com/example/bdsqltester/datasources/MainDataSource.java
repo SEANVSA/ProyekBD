@@ -1,8 +1,10 @@
 package com.example.bdsqltester.datasources;
 
-import com.zaxxer.hikari.*;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class MainDataSource {
 

@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -51,59 +50,59 @@
 
                 <!-- Sesi Pelajaran -->
                 <Label text="07.00 - 07.45" GridPane.rowIndex="1" />
-                <TextField fx:id="mapel1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField fx:id="guru1" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <ChoiceBox fx:id="mapel1" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <ChoiceBox fx:id="guru1" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
 
                 <Label text="07.45 - 08.30" GridPane.rowIndex="2" />
-                <TextField fx:id="mapel2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="guru2" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <ChoiceBox fx:id="mapel2" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <ChoiceBox fx:id="guru2" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
 
                 <Label text="08.30 - 09.15" GridPane.rowIndex="3" />
-                <TextField fx:id="mapel3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <TextField fx:id="guru3" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <ChoiceBox fx:id="mapel3" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <ChoiceBox fx:id="guru3" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
 
                 <!-- Istirahat 1 -->
-                <Label text="09.15 - 09.30 (Istirahat)" style="-fx-font-style: italic; -fx-text-fill: #e67e22;" GridPane.rowIndex="4" GridPane.columnSpan="3" />
+                <Label style="-fx-font-style: italic; -fx-text-fill: #e67e22;" text="09.15 - 09.30 (Istirahat)" GridPane.columnSpan="3" GridPane.rowIndex="4" />
 
                 <Label text="09.30 - 10.15" GridPane.rowIndex="5" />
-                <TextField fx:id="mapel4" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                <TextField fx:id="guru4" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                <ChoiceBox fx:id="mapel4" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <ChoiceBox fx:id="guru4" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
 
                 <Label text="10.15 - 11.00" GridPane.rowIndex="6" />
-                <TextField fx:id="mapel5" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                <TextField fx:id="guru5" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                <ChoiceBox fx:id="mapel5" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                <ChoiceBox fx:id="guru5" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
 
                 <Label text="11.00 - 11.45" GridPane.rowIndex="7" />
-                <TextField fx:id="mapel6" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                <TextField fx:id="guru6" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                <ChoiceBox fx:id="mapel6" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                <ChoiceBox fx:id="guru6" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
 
                 <!-- Istirahat 2 -->
-                <Label text="11.45 - 12.00 (Istirahat)" style="-fx-font-style: italic; -fx-text-fill: #e67e22;" GridPane.rowIndex="8" GridPane.columnSpan="3" />
+                <Label style="-fx-font-style: italic; -fx-text-fill: #e67e22;" text="11.45 - 12.00 (Istirahat)" GridPane.columnSpan="3" GridPane.rowIndex="8" />
 
                 <Label text="12.00 - 12.45" GridPane.rowIndex="9" />
-                <TextField fx:id="mapel7" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                <TextField fx:id="guru7" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                <ChoiceBox fx:id="mapel7" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                <ChoiceBox fx:id="guru7" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
 
                 <Label text="12.45 - 13.30" GridPane.rowIndex="10" />
-                <TextField fx:id="mapel8" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                <TextField fx:id="guru8" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+                <ChoiceBox fx:id="mapel8" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                <ChoiceBox fx:id="guru8" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
 
                 <!-- Pulang -->
-                <Label text="13.30 (Pulang)" style="-fx-font-style: italic; -fx-text-fill: #27ae60;" GridPane.rowIndex="11" GridPane.columnSpan="3" />
+                <Label style="-fx-font-style: italic; -fx-text-fill: #27ae60;" text="13.30 (Pulang)" GridPane.columnSpan="3" GridPane.rowIndex="11" />
             </children>
             <rowConstraints>
-                <RowConstraints/>
-                <RowConstraints/>
-                <RowConstraints/>
-                <RowConstraints/>
-                <RowConstraints/>
-                <RowConstraints/>
-                <RowConstraints/>
-                <RowConstraints/>
-                <RowConstraints/>
-                <RowConstraints/>
-                <RowConstraints/>
-                <RowConstraints/>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
             </rowConstraints>
         </GridPane>
     </VBox>
