@@ -97,4 +97,7 @@ public class GuruViewController {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    void onAbsenSiswaClicked() {
+    }
 }

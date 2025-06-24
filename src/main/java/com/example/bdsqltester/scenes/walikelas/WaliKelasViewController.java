@@ -115,4 +115,8 @@ public class WaliKelasViewController {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    void onAbsenSiswaClicked() {
+
+    }
 }

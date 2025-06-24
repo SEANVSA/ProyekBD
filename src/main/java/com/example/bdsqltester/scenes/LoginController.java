@@ -7,7 +7,6 @@ import com.example.bdsqltester.scenes.admin.AdminViewController;
 import com.example.bdsqltester.scenes.guru.GuruViewController;
 import com.example.bdsqltester.scenes.siswa.SiswaViewController;
 import com.example.bdsqltester.scenes.walikelas.WaliKelasViewController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -82,15 +81,15 @@ public class LoginController {
 
     @FXML
     void initialize() {
-        idField.setText("ADM01");
-        passwordField.setText("admin123");
+        idField.setText("G001");
+        passwordField.setText("guru123");
 
         selectRole.getItems().addAll("Admin", "Siswa", "Guru");
-        selectRole.setValue("Admin");
+        selectRole.setValue("Guru");
     }
 
     @FXML
-    void onLoginClick(ActionEvent event) {
+    void onLoginClick() {
         // Get the username and password from the text fields
         String id = idField.getText();
         String password = passwordField.getText();

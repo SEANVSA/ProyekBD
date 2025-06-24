@@ -3,7 +3,6 @@ package com.example.bdsqltester.scenes.admin;
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.MainDataSource;
 import com.example.bdsqltester.dtos.User;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -50,7 +49,7 @@ public class AdminViewController {
     }
 
     @FXML
-    void onInputDataSiswaClicked(ActionEvent actionEvent) {
+    void onInputDataSiswaClicked() {
         try {
             HelloApplication app = HelloApplication.getApplicationInstance();
 
@@ -68,7 +67,7 @@ public class AdminViewController {
     }
 
     @FXML
-    void onInputJadwalKelasClicked(ActionEvent actionEvent) {
+    void onInputJadwalKelasClicked() {
         try {
             HelloApplication app = HelloApplication.getApplicationInstance();
 
@@ -86,7 +85,7 @@ public class AdminViewController {
     }
 
     @FXML
-    void onBagiKelasClicked(ActionEvent actionEvent) {
+    void onBagiKelasClicked() {
         try {
             HelloApplication app = HelloApplication.getApplicationInstance();
 
@@ -104,7 +103,7 @@ public class AdminViewController {
     }
 
     @FXML
-    void onLogOutClicked(ActionEvent actionEvent) {
+    void onLogOutClicked() {
         try {
             HelloApplication app = HelloApplication.getApplicationInstance();
 
