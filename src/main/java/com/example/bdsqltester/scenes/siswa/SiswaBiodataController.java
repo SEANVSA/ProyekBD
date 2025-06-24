@@ -3,12 +3,17 @@ package com.example.bdsqltester.scenes.siswa;
 import com.example.bdsqltester.HelloApplication;
 import com.example.bdsqltester.datasources.MainDataSource;
 import com.example.bdsqltester.dtos.User;
-import javafx.fxml.*;
-import javafx.scene.*;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class SiswaBiodataController {
 
