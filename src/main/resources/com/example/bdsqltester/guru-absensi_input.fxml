@@ -1,61 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.collections.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="25.0" style="-fx-background-color: #f8f9fa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #f5f7fa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <padding>
-        <Insets top="40" right="40" bottom="40" left="40"/>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
-    <!-- Judul Form -->
-    <Label text="Input Absensi Siswa"
-           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+    <HBox alignment="CENTER_LEFT" spacing="14.0">
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Absensi Siswa"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label style="-fx-font-size: 16px; -fx-text-fill: #7f8c8d;" text="Tanggal"/>
+    </HBox>
 
-    <!-- Form Input -->
-    <GridPane hgap="15" vgap="18"
-              style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 32; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);">
-        <columnConstraints>
-            <ColumnConstraints minWidth="140" halignment="RIGHT"/>
-            <ColumnConstraints minWidth="10"/>
-            <ColumnConstraints minWidth="260" hgrow="ALWAYS"/>
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="40"/>
-            <RowConstraints minHeight="40"/>
-            <RowConstraints minHeight="40"/>
-            <RowConstraints minHeight="40"/>
-            <RowConstraints minHeight="40"/>
-        </rowConstraints>
+    <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-padding: 0 0 10 0;">
+        <ComboBox promptText="Pilih Kelas" style="-fx-pref-width: 180px;"/>
+        <ComboBox promptText="Pilih Mata Pelajaran" style="-fx-pref-width: 200px;"/>
+        <DatePicker style="-fx-pref-width: 150px;"/>
+        <ComboBox promptText="Jam Mulai Kelas" style="-fx-pref-width: 140px;"/>
+        <Button text="Terapkan" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+    </HBox>
 
-        <Label text="Kelas:" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <ComboBox fx:id="inputKelas" promptText="Pilih Kelas" style="-fx-pref-width: 200px;" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+    <Separator style="-fx-padding: 0 0 10 0;"/>
 
-        <Label text="Nama Siswa:" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <ComboBox fx:id="inputSiswa" promptText="Pilih Siswa" style="-fx-pref-width: 260px;" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+    <HBox alignment="CENTER" spacing="25.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20;">
+        <!-- Belum Diabsen -->
+        <VBox alignment="TOP_CENTER" spacing="10.0" style="-fx-background-color: #f8f9fa; -fx-background-radius: 7; -fx-padding: 10;">
+            <Label text="Belum Diabsen" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #7f8c8d;"/>
+            <ListView style="-fx-pref-width: 180px; -fx-pref-height: 350px;"/>
+        </VBox>
+        <!-- Hadir -->
+        <VBox alignment="TOP_CENTER" spacing="10.0" style="-fx-background-color: #eafaf1; -fx-background-radius: 7; -fx-padding: 10;">
+            <Label text="Hadir" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #27ae60;"/>
+            <ListView style="-fx-pref-width: 180px; -fx-pref-height: 350px;"/>
+        </VBox>
+        <!-- Izin -->
+        <VBox alignment="TOP_CENTER" spacing="10.0" style="-fx-background-color: #fef9e7; -fx-background-radius: 7; -fx-padding: 10;">
+            <Label text="Izin" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #f1c40f;"/>
+            <ListView style="-fx-pref-width: 180px; -fx-pref-height: 350px;"/>
+        </VBox>
+        <!-- Alpha -->
+        <VBox alignment="TOP_CENTER" spacing="10.0" style="-fx-background-color: #fdeaea; -fx-background-radius: 7; -fx-padding: 10;">
+            <Label text="Alpha" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #e74c3c;"/>
+            <ListView style="-fx-pref-width: 180px; -fx-pref-height: 350px;"/>
+        </VBox>
+    </HBox>
 
-        <Label text="Tanggal:" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-        <DatePicker fx:id="inputTanggal" style="-fx-pref-width: 180px;" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-
-        <Label text="Status:" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-        <ComboBox fx:id="inputStatus" promptText="Pilih Status" style="-fx-pref-width: 150px;" GridPane.rowIndex="3" GridPane.columnIndex="2">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-<!--                    <String>Hadir</String>-->
-<!--                    <String>Izin</String>-->
-<!--                    <String>Sakit</String>-->
-<!--                    <String>Alpa</String>-->
-                </FXCollections>
-            </items>
-        </ComboBox>
-
-        <HBox spacing="15" alignment="CENTER_RIGHT" GridPane.rowIndex="4" GridPane.columnIndex="2">
-            <Button text="Simpan" fx:id="btnSimpan"
-                    style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-pref-width: 100px;"/>
-            <Button text="Reset" fx:id="btnReset"
-                    style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-pref-width: 100px;"/>
-        </HBox>
-    </GridPane>
+    <HBox alignment="CENTER" spacing="20.0">
+        <Button text="Simpan Absensi"
+                style="-fx-font-size: 16px; -fx-pref-width: 210px; -fx-pref-height: 40px; -fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5;"/>
+        <Button text="Reset"
+                style="-fx-font-size: 16px; -fx-pref-width: 120px; -fx-pref-height: 40px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;"/>
+    </HBox>
 </VBox>
